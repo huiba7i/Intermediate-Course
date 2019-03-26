@@ -1,0 +1,17 @@
+{
+  "name": "es6one",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "babel .\\src\\js\\proxy.js -o .\\dist\\proxy.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "require": "^2.4.20"
+  }
+}
