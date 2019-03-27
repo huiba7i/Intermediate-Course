@@ -82,3 +82,54 @@ function loadImg(){
         console.log('出错啦');
     });
 }
+
+console.log('-----1.所有的电器都有用电的方法，电视也用电，但是还可以放电影，手机电视还可以打电话。利用继承关系实现。-----');
+class anElectricAppliance{
+    constructor(name){
+        this.name = name;
+    }
+    use(){
+        return `看，广场是的人们都在看${this.name}`;
+    }
+}
+
+let a = new anElectricAppliance('电视');
+console.log(a.use());
+
+class anElectricApplianceB extends anElectricAppliance{
+    constructor(name){
+        super(name);
+    }
+}
+
+let b = new anElectricApplianceB('手机');
+console.log(b.use());
+console.log(b);
+
+console.log(`----- 
+2.编写2个类：Monkey类、People类。要求： 
+(1) Monkey类中有个构造方法：constructor (name)，并且有个speak() 方法，输出“小样的，不错嘛！会说话了！”的信息。
+(2)People类是Monkey类的子类，在People类中添加新方法think()，在think方法中输出“别说话！认真思考！” 的信息。 
+-----`);
+
+import Monkey from './monkey.js';
+let monkey = new Monkey('狒狒');
+console.log(monkey.speak());
+
+import people from './prople.js';
+let peo = new people('项羽');
+console.log(peo.think());
+peo.process();
+peo.result();
+
+console.log(`-----3.定义一个Student类，其中包括学号、姓名、性别、出生年月等属性以及display( )方法——显示各属性。实现并测试这个类。-----`);
+
+import student from './student.js';
+let stu = new student("001", "狒狒", "男", "0101");
+stu.display();
+
+console.log(`-----4.从上题的Student类中派生出子类Graduate(研究生)，添加属性：专业subject、导师adviser。-----`);
+
+import graduate from './graduate.js';
+let gra = new graduate('002', '沈阳', '女', '0202', '金融', '巴菲特' );
+gra.displayTwo();
