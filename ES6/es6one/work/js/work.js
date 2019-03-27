@@ -64,25 +64,6 @@ console.log(proxy.name);
 
 console.log('-----2. Promise异步加载一张图片定义一个函数,参数传入一个图片的url地址,返回一个Promise对象,该Promise在图片下载完成的时候resolve,并将下载的图片显示在页面中,下载失败则reject。-----');
 
-function url(){
-    let path = 'img/a.jpg';
-    return new Promise(function(resolve, reject){
-        resolve(path);
-    });
-}
-
-function loadImg(){
-    let p = url();
-    console.log(p);
-    p.then((path)=>{
-        const image = new Image();
-        image.src = path;
-        document.body.appendChild(image);
-    }).catch((error)=>{
-        console.log('出错啦');
-    });
-}
-
 console.log('-----1.所有的电器都有用电的方法，电视也用电，但是还可以放电影，手机电视还可以打电话。利用继承关系实现。-----');
 class anElectricAppliance{
     constructor(name){
@@ -95,6 +76,7 @@ class anElectricAppliance{
 
 let a = new anElectricAppliance('电视');
 console.log(a.use());
+console.log(a);
 
 class anElectricApplianceB extends anElectricAppliance{
     constructor(name){
