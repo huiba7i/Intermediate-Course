@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>myvuedemoone</title>
+</head>
+
+<body>
+  <div id="app" class="container">
+    <form role="form">
+      <div class="form-group">
+        <label for="username">用户名:</label>
+        <input type="text" class="form-control" id="username" placeholder="请输入用户名" v-model="username">
+      </div>
+      <div class="form-group">
+        <label for="userage">年龄:</label>
+        <input type="text" class="form-control" id="userage" placeholder="请输入年龄" v-model="userage">
+      </div>
+      <input type="button" value="提交" class="btn btn-primary" @click="submit">
+      <input type="reset" class="btn btn-danger">
+    </form>
+
+    <table class="table table-bordered">
+      <caption class="text-center text-primary">
+        <h2>用户信息表</h2>
+      </caption>
+      <thead>
+        <tr>
+          <th class="text-center text-danger">序号</th>
+          <th class="text-center text-danger">名字</th>
+          <th class="text-center text-danger">年龄</th>
+          <th class="text-center text-danger">操作</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr class="text-center text-primary" v-for="(user, index) in userData">
+          <td>{{ index+1 }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.age }}</td>
+          <td><button class="btn btn-primary" @click="del">删除</button></td>
+        </tr>
+        <tr v-if="userData==''">
+          <td colspan="4" class="text-center text-muted">暂无数据...</td>
+        </tr>
+        <tr v-if="userData!=''">
+          <td colspan="4" class="text-right">
+            <button class="btn btn-danger" @click="delAll">全部删除</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            确定要删除吗？
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-darger" @click="confirm">确认</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

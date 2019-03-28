@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue 基础使用</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        ul li{
+            list-style-type: none;
+        }
+        .color{
+            color: red;
+            font-size: 20px;
+        }
+        .arrColor{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="container">
+        <h1>{{ msg }}</h1>
+                backcolor: '#ccc'
+                <input type="text" v-model="txt1" class="form-control" :style="{backgroundColor:backcolor}" :class="{color:iscolor}">
+                x
+                <input type="text" v-model="txt2" class="form-control" :class="[arrBack,arrColor]">
+        <div>{{ txt1*txt2 }}</div>
+
+        请输入学生成绩:<input type="text" v-model="score" class="form-control">
+        <ul>
+            <li v-if="score>=90">优秀</li>
+            <li v-else-if="score>=80">良好</li>
+            <li v-else-if="score>=60">及格</li>
+            <li v-else>不及格</li>
+        </ul>
+
+        <ul>
+            <li v-for="stu in students">{{ stu }}</li>
+        </ul>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>学校</th>
+                    <th>老师</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="t in teachers">
+                    <td>{{ t.school }}</td>
+                    <td>{{ t.tea }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button @click="test()">点击开始计数</button>
+        <p v-text="count"></p>
+
+        <!-- 阻止事件冒泡，添加.stop -->
+        <ul @click="testUl()">
+            <li @click.stop="testLi()">111</li>
+            <li @click.stop="testLi()">222</li>
+            <li @click.stop="testLi()">333</li>
+        </ul>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            // 模板
+            el: "#app",
+            // 数据
+            data: {
+                msg: "Hello Vue!",
+                txt1: 15,
+                txt2: 2,
+                score: 60,
+                students: [
+                    "Tom", "Jom", "qq", "rok"
+                ],
+                teachers: [
+                    { "school":"小学", "tea": "玲老师" },
+                    { "school":"中学", "tea": "里老师" },
+                    { "school":"高中", "tea": "陈老师" },
+                    { "school":"大学", "tea": "张老师" },
+                ],
+                backcolor: '#ccc',
+                iscolor: true,
+                arrBack: 'arrColor',
+                arrColor: 'color',
+                count: 0
+            },
+            // 方法
+            methods: {
+                test: function(){
+                    setInterval(function(){
+                        vm.count += 1;
+                    }, 1000);
+                },
+                testUl(){
+                    console.log('UL');
+                },
+                testLi(){
+                    console.log('Li');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
