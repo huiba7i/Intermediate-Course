@@ -30,4 +30,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 > Less
 
 # npm view 
-> 查看插件，在后面加插件名称可以查找指定插件
+> 查看插件，在后面加插件名称可以查找到指定插件

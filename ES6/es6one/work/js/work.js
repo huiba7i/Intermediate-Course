@@ -16,7 +16,7 @@ console.log('-----2. 写一个程序，使用Set来存放一些石头(构造函�
 
 function Rock(name){
     this.name = name;
-}
+} 
 let set = new Set();
 set.add(new Rock('翡翠'));
 set.add(new Rock('和田玉'));
