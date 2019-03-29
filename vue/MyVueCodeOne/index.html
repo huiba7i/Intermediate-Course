@@ -5,14 +5,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>myvuedemoone</title>
+  <style>
+    [v-cloak]{
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="app" class="container">
+  <div id="app" class="container" v-cloak>
     <form role="form">
       <div class="form-group">
         <label for="username">用户名:</label>
-        <input type="text" class="form-control" id="username" placeholder="请输入用户名" v-model="username">
+        <input type="text" class="form-control" id="username" placeholder="请输入用户名" v-model="username" v-focus>
       </div>
       <div class="form-group">
         <label for="userage">年龄:</label>
@@ -36,15 +41,16 @@
       </thead>
       <tbody id="tbody">
         <tr class="text-center text-primary" v-for="(user, index) in userData">
-          <td>{{ index+1 }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.age }}</td>
-          <td><button class="btn btn-primary" @click="del">删除</button></td>
+          <td>{{ (index+1) | toFixed(4) }}</td>
+          <td>{{ user.name | charAt }}</td>
+          <!-- <td>{{ user.age | concat }}</td> -->
+          <td v-text="$options.filters.concat(user.age)"></td>
+          <td><button class="btn btn-primary" @click="del(index)">删除</button></td>
         </tr>
-        <tr v-if="userData==''">
+        <tr v-if="userData.length==0">
           <td colspan="4" class="text-center text-muted">暂无数据...</td>
         </tr>
-        <tr v-if="userData!=''">
+        <tr v-if="userData.length!=0">
           <td colspan="4" class="text-right">
             <button class="btn btn-danger" @click="delAll">全部删除</button>
           </td>

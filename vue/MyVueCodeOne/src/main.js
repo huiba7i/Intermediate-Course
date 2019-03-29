@@ -2,6 +2,7 @@ import Vue from 'vue'
 import $ from 'jquery'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
+import './css/style.css'
 
 // 阻止启动生产消息，常用作指令。
 Vue.config.productionTip = false
@@ -9,6 +10,7 @@ Vue.config.productionTip = false
 var vm = new Vue({
   el: '#app',
   data: {
+    delIndex: 0,
     all: false,
     username: '',
     userage: '',
@@ -20,10 +22,15 @@ var vm = new Vue({
       this.username = '';
       this.userage = '';
     },
-    del(){
+    del(index){
       $('#myModal').modal('show');
+      vm.delIndex = index;
     },
-    confirm(event){
+    delAll(){
+      $('#myModal').modal('show');
+      vm.all = true;
+    },
+    confirm(){
       if ( vm.all == true )
       {
         vm.userData = [];
@@ -31,13 +38,27 @@ var vm = new Vue({
       }
       else
       {
-        this.userData.splice(event.index, 1);
+        vm.userData.splice(vm.delIndex, 1);
       }
       $('#myModal').modal('hide');
+    }
+  },
+  filters: {
+    charAt: function(value){
+      return value.charAt(0);
     },
-    delAll(){
-      $('#myModal').modal('show');
-      vm.all = true;
+    toFixed: function(value, size){
+      return value.toFixed(size);
+    },
+    concat: function(value){
+      return value.concat('岁');
+    }
+  },
+  directives: {
+    focus: {
+      inserted: function(el, binding){
+        el.focus();
+      }
     }
   }
 })
