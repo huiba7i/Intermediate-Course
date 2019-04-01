@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>myvuecodethree</title>
+  <style>
+    ul li {
+      list-style-type: none;
+    }
+
+    ul li ol li {
+      list-style-type: decimal;
+    }
+
+    [v-cloak] {
+      display: none;
+    }
+
+    .left {
+      padding-right: 30%;
+      padding-left: 30%;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <!-- <h2>购物车</h2>
+    <table border="1" width="400">
+      <thead>
+        <tr>
+          <th>名称</th>
+          <th>单价</th>
+          <th>数量</th>
+          <th>总价</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(f,index) in food">
+          <td>{{ f.name }}</td>
+          <td>{{ f.price }}</td>
+          <td>{{ f.num }}</td>
+          <td>{{ f.price*f.num }}</td>
+        </tr>
+        <tr>
+          <td colspan="4">总价格{{ totalPrice }}</td>
+        </tr>
+      </tbody>
+    </table> -->
+
+    <h1>{{msg}}</h1>
+    <input type="text" v-model="msg">
+    <button @click="destroyVue">销毁Vue实例</button>
+    <div class="left">
+      <h2>Vue 生命周期</h2>
+      <h3>四个状态，八个钩子函数</h3>
+      <ul>
+        <li>
+          一、创建
+          <ol>
+            <li>beforeCreate</li>
+            <li>created</li>
+          </ol>
+        </li>
+        <li>
+          二、渲染
+          <ol>
+            <li>beforeMount</li>
+            <li>mounted</li>
+          </ol>
+        </li>
+        <li>
+          三、更新
+          <ol>
+            <li>beforeUpdate</li>
+            <li>updated</li>
+          </ol>
+        </li>
+        <li>
+          四、销毁
+          <ol>
+            <li>befordDestroy</li>
+            <li>destroyed</li>
+          </ol>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

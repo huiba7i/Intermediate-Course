@@ -1,0 +1,12 @@
+[
+    { "name": "测试商品1", "price": 10, "num": 20 },
+    { "name": "测试商品2", "price": 12, "num": 21 },
+    { "name": "测试商品3", "price": 13, "num": 12 },
+    { "name": "测试商品4", "price": 14, "num": 22 },
+    { "name": "测试商品5", "price": 14, "num": 11 },
+    { "name": "测试商品6", "price": 16, "num": 10 },
+    { "name": "测试商品7", "price": 17, "num": 29 },
+    { "name": "测试商品8", "price": 18, "num": 22 },
+    { "name": "测试商品9", "price": 18, "num": 21 },
+    { "name": "测试商品10", "price": 11, "num": 20 }
+]

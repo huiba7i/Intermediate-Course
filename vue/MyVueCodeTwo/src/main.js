@@ -21,7 +21,7 @@ let vm = new Vue({
     del(index, stuid){
       $('#myModal').modal('show');
       vm.delIndex = index;
-      vm.delStuid = stuid;
+      vm.delStuid = stuid; 
     },
     // 删除全部数据按钮
     delAll(){
