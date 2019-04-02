@@ -14,9 +14,46 @@ let vm = new Vue({
     delIndex: 0,        // 表格下标
     delStuid: 0,        // 后台数据字段下标
     items: [],          // 存储本地数据数组
-    backstageData: []   // 存储后端数据数组
+    backstageData: [],   // 存储后端数据数组
+    name: '',
+    sex: '',
+    age: ''
+  },
+  created(){
+    console.log('创建');
+    // 后端数据
+    axios.get('/deal/data').then((resp)=>{
+      // console.log('封装了整个响应对象的结果：', resp);
+      vm.backstageData = resp.data;
+    }).catch((error)=>{
+      console.error('请求失败：', error);
+    });
   },
   methods: {
+    visit(){
+      axios.get('/deal/data').then((resp)=>{
+        // console.log('封装了整个响应对象的结果：', resp);
+        vm.backstageData = resp.data;
+      }).catch((error)=>{
+        console.error('请求失败：', error);
+      });
+    },
+    // 提交数据
+    submit(){
+      axios.post('/deal/add', qs.stringify({
+        name: vm.name,
+        sex: vm.sex,
+        age: vm.age
+      })).then((resp)=>{
+        this.visit();
+        vm.name = '';
+        vm.sex = '';
+        vm.age = '';
+        console.log(resp);
+      }).catch((error)=>{
+        console.error('请求失败：', error);
+      });
+    },
     // 删除单条数据按钮
     del(index, stuid){
       $('#myModal').modal('show');
@@ -45,15 +82,6 @@ let vm = new Vue({
         });
       }
       $('#myModal').modal('hide');
-    },
-    // 后端数据
-    visit(){
-      axios.get('/deal/data').then((resp)=>{
-        console.log('封装了整个响应对象的结果：', resp);
-        vm.backstageData = resp.data;
-      }).catch((error)=>{
-        console.error('请求失败：', error);
-      });
     },
     // 本地数据
     test(){

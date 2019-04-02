@@ -14,11 +14,28 @@
 
 <body>
   <div id="app" class="container" v-cloak>
-    <button class="btn btn-primary" @click="test">axios请求本地资源</button>
-    <button class="btn btn-primary" @click="visit">axios请求后端数据</button>
-    <ul class="list-unstyled">
+    <!-- <button class="btn btn-primary" @click="test">axios请求本地资源</button> -->
+    <!-- <button class="btn btn-primary pull-right" @click="visit">axios请求后端数据</button> -->
+    <!-- <ul class="list-unstyled">
       <li v-for="(i, index) in items">{{ index }} - {{ i }}</li>
-    </ul>
+    </ul> -->
+
+    <form role="form" @submit.prevent>
+      <div class="form-group">
+        <label for="name">姓名</label>
+        <input type="text" class="form-control" id="name" placeholder="请输入姓名" v-model="name">
+      </div>
+      <div class="form-group">
+        <label for="sex">性别</label>
+        <input type="text" class="form-control" id="sex" placeholder="请输入性别" v-model="sex">
+      </div>
+      <div class="form-group">
+        <label for="age">年龄</label>
+        <input type="text" class="form-control" id="age" placeholder="请输入年龄" v-model="age">
+      </div>
+      <input type="button" class="btn btn-primary" @click="submit" value="提交">
+      <input type="reset" class="btn btn-danger">
+    </form>
 
     <table class="table">
       <caption class="text-center text-primary">
@@ -42,29 +59,29 @@
           <td><button class="btn btn-primary" @click="del(index, stu.stuid)">删除</button></td>
         </tr>
         <tr v-if="backstageData.length==0">
-            <td colspan="5" class="text-center text-muted">暂无数据...</td>
-          </tr>
-          <tr v-if="backstageData.length>0">
-            <td colspan="5" class="text-right">
-              <button class="btn btn-danger" @click="delAll">全部删除</button>
-            </td>
-          </tr>
+          <td colspan="5" class="text-center text-muted">暂无数据...</td>
+        </tr>
+        <tr v-if="backstageData.length>0">
+          <td colspan="5" class="text-right">
+            <button class="btn btn-danger" @click="delAll">全部删除</button>
+          </td>
+        </tr>
       </tbody>
     </table>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-body">
-              确定要删除吗？
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-              <button type="button" class="btn btn-darger" @click="confirm">确认</button>
-            </div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            确定要删除吗？
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-darger" @click="confirm">确认</button>
           </div>
         </div>
       </div>
+    </div>
 
   </div>
 </body>
