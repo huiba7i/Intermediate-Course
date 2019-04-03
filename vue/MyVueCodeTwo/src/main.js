@@ -22,7 +22,7 @@ let vm = new Vue({
   created(){
     console.log('创建');
     // 后端数据
-    axios.get('/deal/data').then((resp)=>{
+    axios.get('/deal/data').then((resp)=>{ 
       // console.log('封装了整个响应对象的结果：', resp);
       vm.backstageData = resp.data;
     }).catch((error)=>{
