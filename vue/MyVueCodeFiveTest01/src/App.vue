@@ -3,9 +3,6 @@
     <div class="row row-margin">
       <div class="col-md-12 col-md-offset-0">
         <mymenu/>
-        <!-- 定义路由导航 -->
-        <!-- <router-link to="log" class="btn btn-default">登录</router-link>
-        <router-link to="reg" class="btn btn-default">注册</router-link> -->
       </div>
     </div>
     <!-- 当路由匹配组件时，将组件渲染到该标记中 -->

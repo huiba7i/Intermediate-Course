@@ -128,7 +128,6 @@ export default {
         .get(`/static/phones/${this.$route.params.id}.json`)
         .then(resp => {
           this.phoneDet = resp.data;
-          console.log(this.phoneDet);
           this.changePath = this.phoneDet.images[0];
         })
         .catch(error => {
