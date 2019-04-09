@@ -1,5 +1,7 @@
 <template>
-    <h1>前台登录</h1>
+    <div>
+        <h1>后台页面</h1>
+    </div>
 </template>
 
 <script>
@@ -7,7 +9,6 @@ export default {
     
 }
 </script>
-
 
 <style scoped>
 
