@@ -1,31 +1,19 @@
 <template>
   <div>
-    <ul class="nav nav-tabs">
-      <li class="active">
-        <router-link to="/">Home</router-link>
-      </li>
-      <li>
-        <router-link to="/log">登录</router-link>
-      </li>
-      <li>
-        <router-link to="/reg">注册</router-link>
-      </li>
-      <li>
-        <router-link to="/one">One</router-link>
-      </li>
-      <li>
-        <router-link to="/two">Two</router-link>
-      </li>
-      <li>
-        <router-link to="/user">用户列表</router-link>
-      </li>
-      <li v-if="$store.state.uName!=''">
-        <h4>{{ $store.state.uName欢迎登录 }}</h4>
-      </li>
-      <li class="pull-right">
-        <a class="btn btn-black" @click="clear">注销</a>
-      </li>
-    </ul>
+    <el-menu
+      :default-active="this.$route.path"
+      router
+      @select="handleSelect"
+      class="el-menu-demo"
+      mode="horizontal"
+    >
+      <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
+        {{ item.navItem }}
+      </el-menu-item>
+        <el-menu-item index="7">
+          <a class="el-menu-item" @click="clear">注销</a>
+        </el-menu-item>
+    </el-menu>
   </div>
 </template>
 
@@ -33,7 +21,17 @@
 export default {
   data() {
     return {
-      username: null
+      activeIndex: "1",
+      username: null,
+      navList: [
+        { name: "/", navItem: "首页" },
+        { name: "/log", navItem: "登录" },
+        { name: "/reg", navItem: "注册" },
+        { name: "/one", navItem: "One" },
+        { name: "/two", navItem: "Two" },
+        { name: "/user", navItem: "用户列表" },
+        { name: '/paging', navItem: "分页" }
+      ]
     };
   },
   methods: {
@@ -46,6 +44,9 @@ export default {
           this.$router.push("/");
         }
       }
+    },
+    handleSelect(key, keyPath) {
+      // console.log(key, keyPath);
     }
   },
   mounted() {

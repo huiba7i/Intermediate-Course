@@ -1,26 +1,25 @@
 <template>
-  <div class="row row-margin">
-    <div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-1">
-      <div class="input-group input-margin">
-        <label for="txt">Search:</label>
-        <input type="text" id="txt" class="form-control" v-model="searchPhone">
-      </div>
-      <span>Sort by:</span>
-      <select class="selectpicker" v-model="sort">
-        <option value="name">ABC</option>
-        <option value="age">Newest</option>
-      </select>
-    </div>
-
-    <ul class="col-xs-12 col-sm-12 col-md-9 list-group">
-      <li class="list-group-item" id="item-margin" v-for="phone in items" :key="phone.age">
-        <img alt="phone" :src="phone.imageUrl" class="pageImage">
-        <div class="info">
-          <router-link :to="'det/'+phone.id">{{ phone.name }}</router-link>
-          <p>{{ phone.snippet }}</p>
+  <div>
+    <el-row>
+      <el-col :xs="24" :sm="24" :md="5" :lg="5" :xl="3" :offset="1" class="input-bottom">
+        <div class="demo-input-suffix">
+          <el-input placeholder="请输入内容" v-model="searchPhone">
+            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+          </el-input>
         </div>
-      </li>
-    </ul>
+      </el-col>
+      <el-col :xs="24" :sm="24" :md="18" :lg="18" :xl="20">
+        <el-row v-for="phone in items" :key="phone.age" class="info-border">
+          <el-col :xs="24" :sm="7" :md="5" :lg="5" :xl="5" :offset="1" class="img-tenger">
+            <img alt="phone" :src="phone.imageUrl" class="pageImage">
+          </el-col>
+          <el-col :xs="24" :sm="16" :md="18" :lg="18" :xl="18">
+            <router-link :to="'det/'+phone.id" class="title-fontSize">{{ phone.name }}</router-link>
+            <p>{{ phone.snippet }}</p>
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -29,9 +28,8 @@ export default {
   data() {
     return {
       phoneData: [],
-      searchPhone: "a",
-      sort: 'a'
-    }
+      searchPhone: "a"
+    };
   },
   beforeCreate() {
     this.$axios
@@ -41,7 +39,7 @@ export default {
       })
       .catch(error => {
         console.error(error);
-      })
+      });
   },
   computed: {
     //过滤方法
@@ -65,11 +63,24 @@ export default {
 </script>
 
 <style scoped>
-.row-margin {
-  margin: 0;
+.input-bottom{
+  margin-bottom: 10px;
+}
+.title-fontSize{
+  font-size: 18px;
+  line-height: 1.7;
+}
+.info-border{
+  margin: 0 40px 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 img {
   vertical-align: top;
+}
+.img-tenger{
+  text-align: center;
 }
 .pageImage {
   width: 100px;

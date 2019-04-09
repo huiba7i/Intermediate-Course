@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <div class="row row-margin">
-      <div class="col-md-12 col-md-offset-0">
+    <el-container>
+      <el-header>
         <mymenu/>
-      </div>
-    </div>
-    <!-- 当路由匹配组件时，将组件渲染到该标记中 -->
-    <router-view></router-view>
+      </el-header>
+      <el-container class="main-width">
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script>
-import Menu from './components/menu'
+import Menu from "./components/menu";
 
 export default {
   name: "App",
@@ -30,7 +33,11 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-.row-margin{
+.row-margin {
   margin: 0 0 40px 0;
+}
+.main-width{
+  width: 80%;
+  margin: auto;
 }
 </style>

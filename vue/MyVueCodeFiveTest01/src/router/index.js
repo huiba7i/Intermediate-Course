@@ -9,6 +9,7 @@ import VuexTwo from '../components/VuexTwo'
 import User from '../components/user'
 import UserInfo from '../components/userInfo'
 import store from '../store/index'
+import Paging from '../components/Paging'
 
 Vue.use(VueRouter);
 
@@ -19,18 +20,15 @@ const router = new VueRouter({
             path: '/det/:id', component: Detail,
             meta: {
                 requireAuth: true
-            },
-            children: [
-                { path: '/det/log', component: Login },
-                { path: '/det/reg', component: Register },
-            ]
+            }
         },
         { path: '/log', component: Login },
         { path: '/reg', component: Register },
         { path: '/one', component: VuexOne },
         { path: '/two', component: VuexTwo },
         { path: '/user', component: User },
-        { path: '/userInfo/:id', component: UserInfo }
+        { path: '/userInfo/:id', component: UserInfo },
+        { path: '/paging', component: Paging }
     ]
 }); 
 

@@ -15,7 +15,7 @@ const store = new Vuex.Store({
     },
     // 修改数据还是要靠它
     mutations: {
-        success(state, payload) {
+        modifySuccess(state, payload) {
             state.uName = payload.userName;
             state.uPwd = payload.userPwd;
             state.isLogin = true;
@@ -31,13 +31,14 @@ const store = new Vuex.Store({
                 userpwd: payload.userPwd
             })).then(resp => {
                 let result = resp.data;
-                if (result == 'success') {
+                if (result == "success") {
                     this.commit({
-                        type: 'success',
+                        type: 'modifySuccess',
                         userName: payload.userName,
                         userPwd: payload.userPwd,
                     })
                 }
+
             }).catch(error => {
                 console.error(error);
             })
