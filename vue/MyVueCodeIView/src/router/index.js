@@ -7,6 +7,8 @@ import Classify from '@/app/classify'
 import Form from '@/app/form'
 import Table from '@/app/table'
 import Details from '@/app/details'
+import ZH from '@/app/zhihu'
+import ZHDetails from '@/app/zhDetails'
 
 import BackstageLogin from '@/backstage/backstageLogin'
 
@@ -14,27 +16,16 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    // 首页
     {
-      path: '/', component: Home,
+      path: '/', components: {
+        defaultHome: Home,
+      },
       meta: {
         index: 0,
-        showContent: true
+        showContent: true,
       },
       children: [
-        {
-          path: 'login', component: Login,
-          meta: {
-            index: 1,
-            showContent: false
-          }
-        },
-        {
-          path: 'reg', component: Reg,
-          meta: {
-            index: 1,
-            showContent: false
-          }
-        },
         {
           path: 'classify', component: Classify,
           meta: {
@@ -55,23 +46,55 @@ export default new Router({
             index: 1,
             showContent: false
           }
-        },// 详情页面
+        },
+        // 详情页面
         {
-          path: 'details/:id', component: Details,
+          path: '/details/:id',
+          components: {
+            showFoodDetails: Details
+          },
           meta: {
             index: 1,
             showContent: false
           }
         },
+
       ]
+    },// 知乎日报
+    {
+      path: '/zh', components: {
+        defaultHome: ZH
+      },
+      meta: {
+        index: 1,
+        showContent: true,
+      },
+      children: [
+        {
+          path: '/zhdetails/:id', components: {
+            zhihuDetails: ZHDetails
+          }
+        }
+      ]
+    },
+    // 前台登录
+    {
+      path: '/login', components: {
+        defaultHome: Login,
+      }
+    },
+    // 前台注册
+    {
+      path: '/reg', components: {
+        defaultHome: Reg,
+      }
     },
     // 后台路由
     {
-      path: 'backstageLogin', component: BackstageLogin
+      path: '/backstageLogin', components: {
+        defaultHome: BackstageLogin,
+      }
     },
-    // 重定向
-    {
-      path: '/', redirect: '/'
-    }
+
   ]
 })

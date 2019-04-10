@@ -28,9 +28,18 @@ export default {
           ]
         },
         { name: "/login", navItem: "登录" },
-        { name: "/reg", navItem: "注册" }
+        { name: "/reg", navItem: "注册" },
+        { name: "/zh", navItem: "知乎日报" }
       ]
     };
   }
 };
 </script>
+
+
+<style scoped>
+.el-menu-item.is-active {
+    color: #409EFF;
+    border-right: none;
+}
+</style>

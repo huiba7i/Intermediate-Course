@@ -4,69 +4,73 @@
       <mymenu></mymenu>
     </el-header>
 
-    <div class="content" v-show="$route.meta.showContent">
-      <div class="breadcrumb">
-        <el-breadcrumb separator="|">
-          <el-breadcrumb-item>当季</el-breadcrumb-item>
-          <el-breadcrumb-item>全部</el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
+    <div class="showOrHide">
+      <div class="content">
+        <div class="breadcrumb">
+          <el-breadcrumb separator="|">
+            <el-breadcrumb-item>当季</el-breadcrumb-item>
+            <el-breadcrumb-item>全部</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
 
-      <div class="carousel">
-        <el-carousel :interval="3000" type="card" height="300px">
-          <el-carousel-item v-for="(item,i) in pictures" :key="i">
-            <!-- 走马灯可以根据图片的id，转到相应的详情页面 -->
-            <router-link :to="'details/'+item.id">
-              <img :src="item.src" :alt="item.alt" class="picture-size">
-            </router-link>
-          </el-carousel-item>
-        </el-carousel>
-      </div>
+        <div class="carousel">
+          <el-carousel :interval="3000" type="card" height="300px">
+            <el-carousel-item v-for="(item,i) in pictures" :key="i">
+              <!-- 走马灯可以根据图片的id，转到相应的详情页面 -->
+              <router-link :to="'/details/'+item.id">
+                <img :src="item.src" :alt="item.alt" class="picture-size">
+              </router-link>
+            </el-carousel-item>
+          </el-carousel>
+        </div>
 
-      <el-container class="con-conteainer">
-        <el-aside width="400px">
-          <el-collapse v-model="food" accordion @change="foodList">
-            <el-collapse-item
-              v-for="item in fourSeasons"
-              :key="item.id"
-              :title="item.seasons"
-              :name="item.id"
-            >
-              <el-tag
-                class="tag-dishName"
-                type="success"
-                size="small"
-                v-for="(item,i) in dishName"
-                :key="i"
-                v-show="dishName.length>0"
+        <el-container class="con-conteainer">
+          <el-aside width="20%">
+            <el-collapse v-model="food" accordion @change="foodList">
+              <el-collapse-item
+                v-for="item in fourSeasons"
+                :key="item.id"
+                :title="item.seasons"
+                :name="item.id"
               >
-                <router-link :to="'details/'+item.name" class="tag-dishName-color">{{ item.name }}</router-link>
-              </el-tag>
-            </el-collapse-item>
-          </el-collapse>
-        </el-aside>
-        <el-main>
-          <el-row>
-            <el-col
-              class="col-card-box"
-              :span="5"
-              v-for="(p,index) in pictureDishes"
-              :key="index"
-              :offset=" index > 0 ? 1 : 0 "
-            >
-              <el-card class="card-box">
-                <img :src="p.src" :alt="p.title" class="card-picture">
-                <div style="padding: 14px;">
-                  <router-link class="card-title" :to="'details/'+p.title">{{ p.title }}</router-link>
-                  <time>{{ p.time }}</time>
-                </div>
-              </el-card>
-            </el-col>
-          </el-row>
-        </el-main>
-      </el-container>
+                <el-tag
+                  class="tag-dishName"
+                  type="success"
+                  size="small"
+                  v-for="(item,i) in dishName"
+                  :key="i"
+                  v-show="dishName.length>0"
+                >
+                  <router-link
+                    :to="'/details/'+item.name"
+                    class="tag-dishName-color"
+                  >{{ item.name }}</router-link>
+                </el-tag>
+              </el-collapse-item>
+            </el-collapse>
+          </el-aside>
+          <el-main>
+            <el-row v-show="$route.meta.showContent">
+              <el-col
+                class="col-card-box"
+                :span="5"
+                v-for="(p,index) in pictureDishes"
+                :key="index"
+              >
+                <el-card class="card-box">
+                  <img :src="p.src" :alt="p.title" class="card-picture">
+                  <div style="padding: 14px;">
+                    <router-link class="card-title" :to="'/details/'+p.title">{{ p.title }}</router-link>
+                    <time>{{ p.time }}</time>
+                  </div>
+                </el-card>
+              </el-col>
+            </el-row>
+            <router-view name="showFoodDetails"></router-view>
+          </el-main>
+        </el-container>
+      </div>
     </div>
-    <router-view></router-view>
 
     <el-footer>
       <nav class="fooder-nav">
@@ -74,7 +78,7 @@
         <a>Element</a>
         <a>Element</a>
         <a>Element</a>
-        <router-link to="/backstageLogin">后台登录</router-link>
+        <router-link to="backstageLogin">后台登录</router-link>
       </nav>
     </el-footer>
   </el-container>
@@ -262,7 +266,7 @@ export default {
   display: block;
 }
 .col-card-box {
-  margin: 0 10px 30px;
+  margin: 0 20px 30px;
 }
 .card-title {
   display: block;
@@ -286,4 +290,3 @@ export default {
   margin: 20px 100px;
 }
 </style>
-
