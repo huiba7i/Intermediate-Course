@@ -31,7 +31,7 @@
               <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16" class="title">
                 <router-link :to="'/zhdetails/'+item.id" :title="item.title">{{ item.title }}</router-link>
               </el-col>
-            </el-row>
+            </el-row> 
           </el-menu-item>
         </el-menu>
       </el-col>

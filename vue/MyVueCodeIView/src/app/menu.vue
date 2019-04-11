@@ -10,6 +10,9 @@
       <template slot="title">{{ item.navItem }}</template>
       <el-menu-item v-for="(sec,j) in item.second" :key="j" :index="sec.name">{{ sec.navItem }}</el-menu-item>
     </el-submenu>
+    <el-menu-item class="user" v-if="userName!=null"> 
+      欢迎<span>{{ userName }}</span>登录
+    </el-menu-item>
   </el-menu>
 </template>
 
@@ -17,6 +20,7 @@
 export default {
   data() {
     return {
+      userName: sessionStorage.getItem('uName'),
       navList: [
         { name: "/", navItem: "首页" },
         {
@@ -41,5 +45,10 @@ export default {
 .el-menu-item.is-active {
     color: #409EFF;
     border-right: none;
+}
+.user{
+  float: right;
+  color: #555;
+  margin-right: 20px;
 }
 </style>

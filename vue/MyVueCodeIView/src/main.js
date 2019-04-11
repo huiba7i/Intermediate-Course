@@ -13,11 +13,14 @@ Vue.use(ElementUI)
 import axios from 'axios'
 Vue.prototype.$axios = axios
 
+import store from './store/index'
+
 Vue.config.productionTip = false
 
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

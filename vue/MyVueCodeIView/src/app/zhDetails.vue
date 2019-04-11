@@ -10,6 +10,9 @@
         <p>{{ getDate.title }}</p>
       </div>
       <div class="content-box">
+        <div class="article-title">
+          <h1>{{ getDate['question-title'] }}</h1>
+        </div>
         <div class="title">
           <img :src="'/static/imgs/imgs/'+getDate.image" :alt="getDate.title" class="title-img">
           <span class="author">{{ getDate.author }}</span>
@@ -52,7 +55,9 @@
           <span>评论({{number}})</span>
           <div class="comment-info" v-for="item in getCommentDate.comments" :key="item.id">
             <ul>
-              <li>{{ item.author }}</li>
+              <li>
+                <img :src="'/static/imgs/imgs/'+item['avatar']" :alt="item.author" class="avatar">
+                {{ item.author }}</li>
               <li>{{ (parseInt(Number(item.time)/1000/60/60/24)+'天前') }}</li>
               <li>{{ item.content }}</li>
             </ul>
@@ -241,5 +246,10 @@ export default {
 }
 .interlocution ul li:last-child{
     text-align: right;
+}
+.avatar{
+  width: 20px;
+  height: 20px;
+  vertical-align: top;
 }
 </style>
