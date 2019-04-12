@@ -11,6 +11,8 @@ import ZH from '@/app/zhihu'
 import ZHDetails from '@/app/zhDetails'
 
 import BackstageLogin from '@/backstage/backstageLogin'
+import BackHome from '@/backstage/backHome'
+import HomeCharts from '@/backstage/homeCharts'
 
 Vue.use(Router)
 
@@ -60,7 +62,8 @@ export default new Router({
         },
 
       ]
-    },// 知乎日报
+    },
+    // 知乎日报
     {
       path: '/zh', components: {
         defaultHome: ZH
@@ -89,12 +92,25 @@ export default new Router({
         defaultHome: Reg,
       }
     },
-    // 后台路由
+    // 后台登录
     {
       path: '/backstageLogin', components: {
         defaultHome: BackstageLogin,
       }
     },
+    // 后台首页
+    {
+      path: '/backHome', components: {
+        defaultHome: BackHome,
+      },
+      children: [
+        {
+          path: '/homeCharts', components: {
+            backContent: HomeCharts
+          }
+        }
+      ]
+    }
 
   ]
 })

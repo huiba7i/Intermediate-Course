@@ -15,6 +15,9 @@ Vue.prototype.$axios = axios
 
 import store from './store/index'
 
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
 Vue.config.productionTip = false
 
 new Vue({

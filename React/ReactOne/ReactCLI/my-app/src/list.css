@@ -1,0 +1,34 @@
+.listUl{
+    padding: 20px;
+}
+.listLi{
+    list-style: none;
+    padding: 10px 30px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+}
+.listLi span{
+    display: inline-block;
+    width: 200px;
+}
+.listDel{
+    width: 150px;
+    display: inline-block;
+    text-align: right;
+}
+.del{
+    outline: none;
+    padding: 5px 20px;
+    border: 1px solid #ddd;
+    background-color: white;
+    color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: color .2s linear,background-color .2s linear,border .2s linear,box-shadow .2s linear;
+}
+.del:hover{
+    border: 1px solid #42A5F5;
+    color: rgb(65, 165, 247);
+    transition: color .2s linear,background-color .2s linear,border .2s linear,box-shadow .2s linear;
+}

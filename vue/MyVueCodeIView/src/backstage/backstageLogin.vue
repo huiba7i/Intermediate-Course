@@ -27,8 +27,12 @@ export default {
     const verUser = (rule, value, callback) => {
       if (value == "") {
         callback("账号不能为空");
-      } else if (value == "admin") {
+      } else if (value == "back") {
         callback();
+        this.$store.dispatch({
+          type: "authenticateUser",
+          backName: this.userData.user
+        });
       } else {
         callback("账号名错误");
       }
@@ -68,7 +72,7 @@ export default {
       this.$refs[name].validate(valid => {
         if (valid) {
           this.$Message.success("登录成功");
-          this.$router.push("/");
+          this.$router.push("/backHome");
         } else {
           this.$Message.error("登录失败");
         }
@@ -86,7 +90,6 @@ export default {
 
 <style scoped>
 .back-box {
-  background-color: red;
   background-image: url("/static/imgs/back/background.jpg");
   background-size: 100% 100%;
   position: fixed;

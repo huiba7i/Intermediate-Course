@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box"></div>
+
+    <script src="js/react.min.js"></script>
+    <script src="js/react-dom.min.js"></script>
+    <script src="js/babel.min.js"></script>
+
+    <script type="text/babel">
+        const welcome = (<div>
+        <h1>直接渲染在HTML页面上</h1>
+        </div>);
+        ReactDOM.render(welcome, document.getElementById('box'));
+    </script>
+</body>
+
+</html>
