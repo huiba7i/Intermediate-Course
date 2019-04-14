@@ -13,6 +13,11 @@ import ZHDetails from '@/app/zhDetails'
 import BackstageLogin from '@/backstage/backstageLogin'
 import BackHome from '@/backstage/backHome'
 import HomeCharts from '@/backstage/homeCharts'
+import Dish from '@/backstage/contentManage/dish'
+import Comment from '@/backstage/contentManage/comment'
+import BasicUser from '@/backstage/userManage/basicUser'
+import AddUser from '@/backstage/userManage/addUser'
+
 
 Vue.use(Router)
 
@@ -108,9 +113,28 @@ export default new Router({
           path: '/homeCharts', components: {
             backContent: HomeCharts
           }
+        },
+        {
+          path: '/dish', components: {
+            backContent: Dish
+          }
+        },
+        {
+          path: '/comment', components: {
+            backContent: Comment
+          }
+        },
+        {
+          path: '/basicUser', components: {
+            backContent: BasicUser
+          }
+        },
+        {
+          path: '/addUser', components: {
+            backContent: AddUser
+          }
         }
       ]
     }
-
   ]
 })

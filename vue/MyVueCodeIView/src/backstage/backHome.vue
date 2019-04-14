@@ -2,7 +2,9 @@
   <div class="layout-box">
     <!-- 页眉 -->
     <header class="header">
-      <div class="logo">Logo</div>
+      <div class="logo">
+        <img src="https://file.iviewui.com/dist/e1cf12c07bf6458992569e67927d767e.png">
+      </div>
       <ul>
         <li>
           <Icon type="ios-chatboxes-outline" size="20"/>
@@ -10,7 +12,8 @@
         </li>
         <li>
           <span>
-            欢迎<span class="user-name">{{ backName }}</span>登录
+            欢迎
+            <span class="user-name">{{ backName }}</span>登录
           </span>
         </li>
         <li>
@@ -30,16 +33,23 @@
             <template slot="title">
               <Icon type="ios-paper"/>内容管理
             </template>
-            <MenuItem name="1-1">文章管理</MenuItem>
-            <MenuItem name="1-2">评论管理</MenuItem>
-            <MenuItem name="1-3">举报管理</MenuItem>
+            <MenuItem name="1-1">
+              <span @click="dish">菜品管理</span>
+            </MenuItem>
+            <MenuItem name="1-2">
+              <span @click="comment">评论管理</span>
+            </MenuItem>
           </Submenu>
           <Submenu name="3">
             <template slot="title">
               <Icon type="ios-people"/>用户管理
             </template>
-            <MenuItem name="2-1">新增用户</MenuItem>
-            <MenuItem name="2-2">活跃用户</MenuItem>
+            <MenuItem name="2-1">
+              <span @click="basicUser">基本用户</span>
+            </MenuItem>
+            <MenuItem name="2-2">
+              <span @click="addUser">新增用户</span>
+            </MenuItem>
           </Submenu>
           <Submenu name="4">
             <template slot="title">
@@ -74,16 +84,28 @@ export default {
     };
   },
   methods: {
-    home(){
-      this.$router.push('/homeCharts');
+    home() {
+      this.$router.push("/homeCharts");
     },
-    signOut(){
-      this.$router.push('/');
+    signOut() {
+      this.$router.push("/");
       sessionStorage.clear();
+    },
+    dish() {
+      this.$router.push("dish");
+    },
+    comment() {
+      this.$router.push("comment");
+    },
+    basicUser() {
+      this.$router.push("basicUser");
+    },
+    addUser() {
+      this.$router.push("addUser");
     }
   },
-  mounted(){
-    this.$router.push('/homeCharts');
+  mounted() {
+    this.$router.push("/homeCharts");
   }
 };
 </script>
@@ -103,11 +125,19 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 100;
 }
 .logo {
+  width: 115px;
+  height: 50px;
+  margin-top: 15px;
   float: left;
   margin-left: 100px;
   color: blue;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
 }
 .header ul {
   float: right;
@@ -135,18 +165,23 @@ export default {
   position: fixed;
   top: 80px;
   left: 0;
+  z-index: 100;
 }
 .home {
   letter-spacing: 25px;
 }
-.menu-background-color{
+.menu-background-color {
   margin: 40px 20px 0;
   background-color: white;
+}
+.sider-box {
+  margin-left: 30px;
 }
 
 /* 内容 */
 .content-layout {
-  background-color: rgb(246, 248, 255);
+  background-color: #e9ecf3;
   padding: 80px 0 0 300px;
+  z-index: 1;
 }
 </style>
