@@ -1,20 +1,21 @@
 import React from 'react'
 import '../../src/list.css'
-import 'antd/dist/antd.css';
 
-let arr = ["css", "html", "javascript"];
 class list extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
         return (
             <ul className="listUl">
                 {
-                    arr.map(function (name) {
+                    this.props.todoList.map((name, index) => {
                         return (
-                            <li className="listLi" key={name}>
+                            // key区分虚拟dom，渲染不同的key标签
+                            <li className="listLi" key={index}>
                                 <span>{name}</span>
                                 <div className="listDel">
-                                    {/* <button className="del">删除</button> */}
-                                    <Button type="danger">删除</Button>
+                                    <button className="del" onClick={()=>{this.props.delItem(index)}}>删除</button>
                                 </div>
                             </li>
                         )

@@ -69,7 +69,7 @@
       </div>
     </article>
     <!-- 主题内容 -->
-    <div class="content-layout">
+    <div class="content-layout" id="content-layout" ref="page">
       <router-view name="backContent"></router-view>
     </div>
   </div>
@@ -79,6 +79,7 @@
 export default {
   data() {
     return {
+      screenHeight: document.documentElement.clientHeight, // 屏幕高度
       backName: sessionStorage.getItem("bName"),
       theme2: "light"
     };
@@ -102,10 +103,27 @@ export default {
     },
     addUser() {
       this.$router.push("addUser");
+    },
+    changeFixed(screenHeight) {
+      if (this.$refs.page) {
+        this.$refs.page.style.minHeight = screenHeight + "px";
+      }
+    }
+  },
+  watch: {
+    screenHeight() {
+      this.changeFixed(this.screenHeight);
     }
   },
   mounted() {
     this.$router.push("/homeCharts");
+    let that = this;
+    window.onresize = function() {
+      this.screenHeight = `${document.documentElement.clientHeight}`;
+      if (that.$refs.page) {
+        that.$refs.page.style.minHeight = screenHeight + "px";
+      }
+    };
   }
 };
 </script>
@@ -113,6 +131,7 @@ export default {
 <style scoped>
 /* 整体 */
 .layout-box {
+  height: 100%;
   position: relative;
   background-color: white;
 }

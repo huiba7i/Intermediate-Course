@@ -3,10 +3,8 @@
 }
 .listLi{
     list-style: none;
-    padding: 10px 30px;
+    margin: 10px 0;
     text-align: center;
-    height: 30px;
-    line-height: 30px;
 }
 .listLi span{
     display: inline-block;
