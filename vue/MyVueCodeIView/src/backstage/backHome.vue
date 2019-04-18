@@ -27,17 +27,17 @@
         <Menu :theme="theme2" :open-names="['2']" class="menu-background-color">
           <MenuItem name="1">
             <Icon type="ios-home"/>
-            <span class="home" @click="home">首页</span>
+            <span class="home" @click="()=>{$router.push('homeCharts')}">首页</span>
           </MenuItem>
           <Submenu name="2">
             <template slot="title">
               <Icon type="ios-paper"/>内容管理
             </template>
             <MenuItem name="1-1">
-              <span @click="dish">菜品管理</span>
+              <span @click="()=>{$router.push('dish')}">菜品管理</span>
             </MenuItem>
             <MenuItem name="1-2">
-              <span @click="comment">评论管理</span>
+              <span @click="()=>{$router.push('comment')}">评论管理</span>
             </MenuItem>
           </Submenu>
           <Submenu name="3">
@@ -45,10 +45,10 @@
               <Icon type="ios-people"/>用户管理
             </template>
             <MenuItem name="2-1">
-              <span @click="basicUser">基本用户</span>
+              <span @click="()=>{$router.push('basicUser')}">基本用户</span>
             </MenuItem>
             <MenuItem name="2-2">
-              <span @click="addUser">新增用户</span>
+              <span @click="()=>{$router.push('addUser')}">新增用户</span>
             </MenuItem>
           </Submenu>
           <Submenu name="4">
@@ -85,25 +85,11 @@ export default {
     };
   },
   methods: {
-    home() {
-      this.$router.push("/homeCharts");
-    },
     signOut() {
       this.$router.push("/");
       sessionStorage.clear();
     },
-    dish() {
-      this.$router.push("dish");
-    },
-    comment() {
-      this.$router.push("comment");
-    },
-    basicUser() {
-      this.$router.push("basicUser");
-    },
-    addUser() {
-      this.$router.push("addUser");
-    },
+    // 改变高度
     changeFixed(screenHeight) {
       if (this.$refs.page) {
         this.$refs.page.style.minHeight = screenHeight + "px";
@@ -117,6 +103,7 @@ export default {
   },
   mounted() {
     this.$router.push("/homeCharts");
+    
     let that = this;
     window.onresize = function() {
       this.screenHeight = `${document.documentElement.clientHeight}`;
