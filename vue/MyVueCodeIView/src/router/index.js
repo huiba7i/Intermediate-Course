@@ -9,6 +9,7 @@ import Table from '@/app/table'
 import Details from '@/app/details'
 import ZH from '@/app/zhihu'
 import ZHDetails from '@/app/zhDetails'
+import SingleDetails from '@/app/singleDetails'
 
 import BackstageLogin from '@/backstage/backstageLogin'
 import BackHome from '@/backstage/backHome'
@@ -17,7 +18,6 @@ import Dish from '@/backstage/contentManage/dish'
 import Comment from '@/backstage/contentManage/comment'
 import BasicUser from '@/backstage/userManage/basicUser'
 import AddUser from '@/backstage/userManage/addUser'
-
 
 Vue.use(Router)
 
@@ -62,9 +62,20 @@ export default new Router({
           },
           meta: {
             index: 1,
-            showContent: false
-          }
+            showContent: false,
+            singleDetails: true
+          },
         },
+        {
+          path: '/singleDetails/:cid',
+          components: {
+            showFoodDetails: SingleDetails
+          },
+          meta: {
+            index: 1,
+            singleDetails: false
+          },
+        }
 
       ]
     },

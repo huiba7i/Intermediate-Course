@@ -1,6 +1,6 @@
 # myvuecodeiview
 
-> A Vue.js project
+> 简单使用组件及路由  
 
 ## Build Setup
 

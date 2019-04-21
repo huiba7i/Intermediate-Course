@@ -11,11 +11,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/sys': {
-        target: 'http://192.168.1.254:8888',
-        changeOrigin: 'true',
+      '/cook': {
+        target: 'http://apis.juhe.cn',
+        changeOrigin: true,
         pathRewrite: {
-          '^/sys': '/sys'
+          '^/cook': '/cook'
         }
       }
     },

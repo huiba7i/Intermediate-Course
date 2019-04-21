@@ -26,29 +26,27 @@
 
         <el-container class="con-conteainer">
           <el-aside width="20%">
-            <el-collapse v-model="food" accordion @change="foodList">
+            <el-collapse v-model="food" accordion @change="seasonsDeatils">
               <el-collapse-item
-                v-for="item in fourSeasons"
-                :key="item.id"
-                :title="item.seasons"
-                :name="item.id"
+                v-for="(item,i) in fourSeasons"
+                :key="item.parentId"
+                :title="item.name"
+                :name="i"
               >
                 <el-tag
                   class="tag-dishName"
                   type="success"
                   size="small"
-                  v-for="(item,i) in dishName"
+                  v-for="(item,i) in singleDetails"
                   :key="i"
-                  v-show="dishName.length>0"
+                  v-show="singleDetails.length>0"
                 >
-                  <router-link
-                    :to="'/details/'+item.name"
-                    class="tag-dishName-color"
-                  >{{ item.name }}</router-link>
+                  <router-link :to="'/details/'+item.id" class="tag-dishName-color">{{ item.name }}</router-link>
                 </el-tag>
               </el-collapse-item>
             </el-collapse>
           </el-aside>
+
           <el-main>
             <el-row v-show="$route.meta.showContent">
               <el-col
@@ -66,7 +64,9 @@
                 </el-card>
               </el-col>
             </el-row>
-            <router-view name="showFoodDetails"></router-view>
+            <transition :name="transitionName">
+              <router-view name="showFoodDetails"></router-view>
+            </transition>
           </el-main>
         </el-container>
       </div>
@@ -89,8 +89,8 @@ import menu from "./menu";
 export default {
   data() {
     return {
+      transitionName: "slide-left",
       food: "",
-      dishName: [],
       pictures: [
         { src: "../static/imgs/home/1.jpg", alt: "picture", id: 1 },
         { src: "../static/imgs/home/2.jpg", alt: "picture", id: 2 },
@@ -99,55 +99,12 @@ export default {
         { src: "../static/imgs/home/5.jpg", alt: "picture", id: 5 },
         { src: "../static/imgs/home/6.jpg", alt: "picture", id: 6 }
       ],
-      fourSeasons: [
-        { id: 1, seasons: "春" },
-        { id: 2, seasons: "夏" },
-        { id: 3, seasons: "秋" },
-        { id: 4, seasons: "冬" }
-      ],
-      listOfSeasons: [
-        {
-          id: 1,
-          food: [
-            { name: "春季菜品1" },
-            { name: "春季菜品2" },
-            { name: "春季菜品3" },
-            { name: "春季菜品1" },
-            { name: "春季菜品2" },
-            { name: "春季菜品3" },
-            { name: "春季菜品1" },
-            { name: "春季菜品2" },
-            { name: "春季菜品3" },
-            { name: "春季菜品1" },
-            { name: "春季菜品2" },
-            { name: "春季菜品3" }
-          ]
-        },
-        {
-          id: 2,
-          food: [
-            { name: "夏季菜品1" },
-            { name: "夏季菜品2" },
-            { name: "夏季菜品3" }
-          ]
-        },
-        {
-          id: 3,
-          food: [
-            { name: "秋季菜品1" },
-            { name: "秋季菜品2" },
-            { name: "秋季菜品3" }
-          ]
-        },
-        {
-          id: 4,
-          food: [
-            { name: "冬季菜品1" },
-            { name: "冬季菜品2" },
-            { name: "冬季菜品3" }
-          ]
-        }
-      ],
+      // 菜品分类标签列表
+      fourSeasons: [],
+      // 菜品分类总列表详情
+      categoryDeatils: [],
+      // 菜品分类单个列表详情
+      singleDetails: [],
       pictureDishes: [
         {
           src: "../static/imgs/home/296974.jpg",
@@ -232,11 +189,34 @@ export default {
       ]
     };
   },
+  mounted() {
+    this.getCategory();
+  },
+  // beforeRouteUpdate() {
+  //   const toDepth = to.path.split("").length;
+  //   const fromDepth = from.path.split("").length;
+  //   this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
+  //   next();
+  // },
   methods: {
-    foodList(e) {
-      if (this.listOfSeasons[e - 1].id == e) {
-        this.dishName = this.listOfSeasons[e - 1].food;
-      }
+    seasonsDeatils(e) {
+      this.singleDetails = this.categoryDeatils[e];
+    },
+    // 分类标签列表
+    getCategory() {
+      this.$axios
+        .get("/cook/category?key=7515e14ef149b000386b01f808e5d9f6")
+        .then(resp => {
+          // console.log(resp);
+          this.fourSeasons = resp.data.result;
+          for (let f of this.fourSeasons) {
+            this.categoryDeatils.push(f.list);
+          }
+          // console.log(this.categoryDeatils);
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
   },
   components: {

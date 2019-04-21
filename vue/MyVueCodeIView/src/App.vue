@@ -1,12 +1,25 @@
 <template>
   <div id="app">
-    <router-view name="defaultHome"/>
+    <transition :name="transitionName">
+      <router-view name="defaultHome"/>
+    </transition>
   </div>
 </template>
 
 <script>
 export default {
-  name: "App"
+  name: "App",
+  data(){
+    return{
+      transitionName: 'slide-left'
+    }
+  },
+  beforeRouteUpdate(){
+    const toDepth = to.path.split('/').length
+    const fromDepth = from.path.split('/').length
+    this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+    next()
+  }
 };
 </script>
 
