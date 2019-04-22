@@ -10,8 +10,20 @@
       <template slot="title">{{ item.navItem }}</template>
       <el-menu-item v-for="(sec,j) in item.second" :key="j" :index="sec.name">{{ sec.navItem }}</el-menu-item>
     </el-submenu>
-    <el-menu-item class="user" v-if="userName!=null"> 
-      欢迎<span>{{ userName }}</span>登录
+
+    <el-menu-item class="search">
+      <el-input
+        size="small"
+        v-model="search"
+        placeholder="请输入菜品名称"
+        suffix-icon="el-icon-search"
+        @change="searchInfo"
+      ></el-input>
+    </el-menu-item>
+
+    <el-menu-item class="user" v-if="userName!=null">
+      欢迎
+      <span>{{ userName }}</span>登录
     </el-menu-item>
   </el-menu>
 </template>
@@ -20,7 +32,8 @@
 export default {
   data() {
     return {
-      userName: sessionStorage.getItem('uName'),
+      search: "",
+      userName: sessionStorage.getItem("uName"),
       navList: [
         { name: "/", navItem: "首页" },
         {
@@ -36,6 +49,11 @@ export default {
         { name: "/zh", navItem: "知乎日报" }
       ]
     };
+  },
+  methods: {
+    searchInfo(event) {
+      this.$emit('getSearchData', event);
+    }
   }
 };
 </script>
@@ -43,12 +61,16 @@ export default {
 
 <style scoped>
 .el-menu-item.is-active {
-    color: #409EFF;
-    border-right: none;
+  color: #409eff;
+  border-right: none;
 }
-.user{
+.user {
   float: right;
   color: #555;
   margin-right: 20px;
+}
+.search {
+  float: right;
+  margin-right: 50px;
 }
 </style>

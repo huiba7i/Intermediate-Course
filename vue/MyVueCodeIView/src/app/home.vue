@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header>
-      <mymenu></mymenu>
+      <mymenu @getSearchData="getSearchInfo"></mymenu>
     </el-header>
 
     <div class="showOrHide">
@@ -56,10 +56,9 @@
                 :key="index"
               >
                 <el-card class="card-box">
-                  <img :src="p.src" :alt="p.title" class="card-picture">
-                  <div style="padding: 14px;">
-                    <router-link class="card-title" :to="'/details/'+p.title">{{ p.title }}</router-link>
-                    <time>{{ p.time }}</time>
+                  <img :src="p.albums" :alt="p.title" class="card-picture">
+                  <div style="padding-top: 15px;" class="card-title-box">
+                    <router-link class="card-title" :to="'/singleDetails/'+p.id">{{ p.title }}</router-link>
                   </div>
                 </el-card>
               </el-col>
@@ -105,99 +104,13 @@ export default {
       categoryDeatils: [],
       // 菜品分类单个列表详情
       singleDetails: [],
-      pictureDishes: [
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        },
-        {
-          src: "../static/imgs/home/296974.jpg",
-          title: "美味汉堡",
-          time: "2019-04-09"
-        }
-      ]
+      // 首页菜品
+      pictureDishes: []
     };
   },
   mounted() {
     this.getCategory();
   },
-  // beforeRouteUpdate() {
-  //   const toDepth = to.path.split("").length;
-  //   const fromDepth = from.path.split("").length;
-  //   this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
-  //   next();
-  // },
   methods: {
     seasonsDeatils(e) {
       this.singleDetails = this.categoryDeatils[e];
@@ -213,6 +126,19 @@ export default {
             this.categoryDeatils.push(f.list);
           }
           // console.log(this.categoryDeatils);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    getSearchInfo(msg) {
+      this.$axios
+        .get(
+          `/cook/query?menu=${msg}&key=${"7515e14ef149b000386b01f808e5d9f6"}`
+        )
+        .then(resp => {
+          // console.log(resp);
+          this.pictureDishes = resp.data.result.data;
         })
         .catch(error => {
           console.error(error);
@@ -251,7 +177,15 @@ export default {
 .card-title {
   display: block;
   font-size: 16px;
-  margin: 10px;
+  margin: 10px 10px 0;
+}
+.card-title-box {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  padding-top: 15px;
 }
 .inside-container {
   padding: 20px 100px 0;

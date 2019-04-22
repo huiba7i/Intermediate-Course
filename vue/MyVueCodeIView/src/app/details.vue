@@ -4,7 +4,7 @@
       <el-col class="col-card-box" :span="5" v-for="(sin,index) in singleDish.data" :key="index">
         <el-card class="card-box">
           <img :src="sin.albums[0]" :alt="sin.title" class="card-picture">
-          <div style="padding: 14px;">
+          <div style="padding-top: 15px;" class="card-title-box">
             <router-link class="card-title" :to="'/singleDetails/'+sin.id">{{ sin.title }}</router-link>
           </div>
         </el-card>
@@ -40,8 +40,8 @@ export default {
     this.getSingleDetails();
   },
   watch: {
-    $route: function(before, after) {
-      if (before != after) this.getSingleDetails();
+    $route: function(newPath, oldPath) {
+      if (newPath != oldPath) this.getSingleDetails();
     }
   }
 };
@@ -59,5 +59,13 @@ export default {
   display: block;
   font-size: 16px;
   margin: 10px;
+}
+.card-title-box {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  padding-top: 15px;
 }
 </style>

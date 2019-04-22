@@ -63,7 +63,8 @@ export default new Router({
           meta: {
             index: 1,
             showContent: false,
-            singleDetails: true
+            singleDetails: true,
+            
           },
         },
         {
