@@ -27,13 +27,17 @@ while True:
             print('不可以输入负数，请重新输入')
             continue
 
+        file.seek(0, 0)
+        for line in file.readlines()[0:row]:
+            line = line.strip()
+            print("读取的数据为: %s" % (line))
+
+        file.close()
+
         break
     except (ValueError, NameError, FileNotFoundError):
         print('输入错误，请检查行数或文件名输入是否正确，再重新输入')
 
-file.seek(0, 0)  # 在读取文件中，读取文件后“光标”会保留在末尾，在后面再次需要读取文件时，注意移动光标
-for line in file.readlines()[0:row]:
-    line = line.strip()
-    print("读取的数据为: %s" % (line))
 
-file.close()
+
+
