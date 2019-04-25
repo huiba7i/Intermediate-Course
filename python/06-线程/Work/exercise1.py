@@ -12,7 +12,6 @@ def lookup(character, file_name):
     """
     file = open(file_name + '.txt', mode='r+', encoding='utf-8')
     number = 0
-    n = 0
 
     while True:
         file_read = file.read(1)
