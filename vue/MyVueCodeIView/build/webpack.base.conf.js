@@ -3,14 +3,20 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const isPro = process.env.NODE_ENV === 'production'
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
 
 
 module.exports = {
+  plugins: [
+    // 使用包分析工具
+    new BundleAnalyzerPlugin()
+  ],
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
