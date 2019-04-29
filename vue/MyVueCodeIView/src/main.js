@@ -18,6 +18,13 @@ import store from './store/index'
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 
+import  VueResource  from 'vue-resource'
+Vue.prototype.$http = VueResource
+Vue.use(VueResource) 
+
+import $ from 'jquery'
+Vue.prototype.$ = $
+
 Vue.config.productionTip = false
 
 new Vue({

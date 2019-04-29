@@ -82,7 +82,7 @@ def select_all():
             conn.close()
 
 
-def select_data(stu):
+def select_condition_data(stu):
     """
         动态查询用户信息
     :param stu: 字典对象
@@ -169,20 +169,25 @@ def select_data(stu, pageNum):
                 sql += ' AND NAME LIKE concat("%", %s, "%")'
                 params.append(stu['name'])
         if 'province' in stu:
-            sql += ' AND PROVINCE = %s'
-            params.append(stu['province'])
+            if stu['province']:
+                sql += ' AND PROVINCE = %s'
+                params.append(stu['province'])
         if 'city' in stu:
-            sql += ' AND CITY = %s'
-            params.append(stu['city'])
+            if stu['city']:
+                sql += ' AND CITY = %s'
+                params.append(stu['city'])
         if 'zip' in stu:
-            sql += ' AND ZIP = %s'
-            params.append(stu['zip'])
+            if stu['zip']:
+                sql += ' AND ZIP = %s'
+                params.append(stu['zip'])
         if 'startDay' in stu:
-            sql += ' AND DATE >= %s'
-            params.append(stu['startDay'])
+            if stu['startDay']:
+                sql += ' AND DATE >= %s'
+                params.append(stu['startDay'])
         if 'endDay' in stu:
-            sql += ' AND DATE <= %s'
-            params.append(stu['endDay'])
+            if stu['endDay']:
+                sql += ' AND DATE <= %s'
+                params.append(stu['endDay'])
 
         print(sql)
 
@@ -213,7 +218,15 @@ def select_data(stu, pageNum):
 
         users = []
         for u in cur.fetchall():
-            user = modal.User(u[0], u[1], u[2], u[3], u[4], u[5], u[6])
+            user = {
+                'id': u[0],
+                'name': u[1],
+                'province': u[2],
+                'city': u[3],
+                'address': u[4],
+                'zip': u[5],
+                'date': str(u[6])
+            }
             users.append(user)
         page.data = users
 

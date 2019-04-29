@@ -1,91 +1,60 @@
 <template>
   <div class="login-box">
-    <Form class="form" ref="userData" :model="userData" :rules="ruleInline">
+    <Form class="form" ref="userData" :model="userData">
       <FormItem prop="user">
-        <Input type="text" v-model="userData.user" placeholder="Username">
+        <Input type="text" v-model="userData.name" placeholder="Username">
           <Icon type="ios-person-outline" slot="prepend"></Icon>
         </Input>
       </FormItem>
       <FormItem prop="password">
-        <Input type="password" v-model="userData.password" placeholder="Password">
+        <Input type="password" v-model="userData.pwd" placeholder="Password">
           <Icon type="ios-lock-outline" slot="prepend"></Icon>
         </Input>
       </FormItem>
       <FormItem>
-        <Button type="primary" @click="handleSubmit('userData')">登录</Button>
+        <Button type="primary" @click="handleSubmit(userData)">登录</Button>
         <Button type="default" ghost @click="cancel" :style="{marginLeft: '20px'}">注册</Button>
       </FormItem>
       <div class="bottom-home">
-      <Button type="text" ghost @click="home">返回首页</Button>
-    </div>
+        <Button type="text" ghost @click="home">返回首页</Button>
+      </div>
     </Form>
   </div>
 </template>
 
 <script>
+import qs from "querystring";
+
 export default {
   data() {
-    const verUser = (rule, value, callback) => {
-      if (value == "") {
-        callback("账号不能为空");
-      }else if ( value == "admin" ){
-        callback();
-        this.$store.dispatch({
-          type: 'authenticateUser',
-          userName: value
-        })
-      } else {
-        callback("账户名错误");
-      }
-
-    };
-    const verPwd = (rule, value, callback) => {
-      if (value == "") {
-        callback("密码不能为空");
-      } else if (value == "123") {
-        callback();
-      } else {
-        callback("密码错误");
-      }
-    };
     return {
       userData: {
-        user: "",
-        password: ""
-      },
-      ruleInline: {
-        user: [
-          {
-            validator: verUser,
-            trigger: "blur"
-          }
-        ],
-        password: [
-          {
-            validator: verPwd,
-            trigger: "blur"
-          }
-        ]
+        name: "",
+        pwd: ""
       }
     };
   },
   methods: {
-    handleSubmit(name) {
-      this.$refs[name].validate(valid => {
-        if (valid) {
-          console.log(valid);
-          this.$Message.success("登录成功");
-          this.$router.push("/");
-        } else {
-          this.$Message.error("登录失败");
-        }
-      });
-    },
     cancel() {
       this.$router.push("/reg");
     },
     home() {
       this.$router.push("/");
+    },
+    handleSubmit(n) {
+      let reg = /^\s*$/;
+      if (reg.test(n.anme) || reg.test(n.pwd)) {
+        this.$Message.success("请填写完整信息");
+        return;
+      }
+      console.log(n.name, n.pwd);
+      this.$.post("http://localhost:1111/cgi-bin/login.py", { name: n.name, pwd: n.pwd }, function(data) {
+        if (data == "success") {
+          console.log(data);
+        } else {
+          $("#info").text("用户名不存在或者密码错误");
+        }
+      });
     }
   }
 };
@@ -93,7 +62,6 @@ export default {
 
 <style scoped>
 .login-box {
-  background-color: red;
   background-image: url("/static/imgs/home/login.jpg");
   background-size: 100% 100%;
   position: fixed;
@@ -108,7 +76,7 @@ export default {
   border-radius: 5px;
   position: relative;
 }
-.bottom-home{
+.bottom-home {
   text-align: right;
 }
 </style>

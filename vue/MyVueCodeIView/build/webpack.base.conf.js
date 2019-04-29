@@ -5,6 +5,7 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const isPro = process.env.NODE_ENV === 'production'
+const webpack = require('webpack')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -15,7 +16,12 @@ function resolve(dir) {
 module.exports = {
   plugins: [
     // 使用包分析工具
-    new BundleAnalyzerPlugin()
+    // new BundleAnalyzerPlugin()
+
+    new webpack.ProgressPlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
   ],
   context: path.resolve(__dirname, '../'),
   entry: {

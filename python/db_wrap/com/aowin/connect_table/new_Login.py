@@ -39,3 +39,28 @@ def select_data(stu):
     finally:
         if conn:
             conn.close()
+
+
+def login(name, pwd):
+    """
+        用户登录功能
+    :param name: 用户姓名
+    :param pwd: 用户登录密码
+    :return: 查询到的用户信息
+    """
+    conn = DB_util.getConn()
+    try:
+        cur = conn.cursor()
+        sql = 'SELECT * FROM login WHERE USERNAME=%s AND USERPWD=%s'
+        cur.execute(sql, (name, pwd))
+
+        user = cur.fetchone()
+        return user
+    finally:
+        if conn:
+            conn.close()
+
+
+if __name__ == '__main__':
+    user = login('tom', '123')
+    print(user)
