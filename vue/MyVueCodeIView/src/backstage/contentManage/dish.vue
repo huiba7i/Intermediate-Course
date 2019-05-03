@@ -57,27 +57,37 @@ export default {
           align: "center"
         },
         {
-          title: "序号",
+          title: "ID",
           key: "id",
           sortable: true
         },
         {
-          title: "名称",
+          title: "Name",
           key: "name",
-          sortable: true,
-          render: (h, params) => {
-            return h("div", [
-              h("Icon", {
-                props: {
-                  type: "person"
-                }
-              }),
-              h("strong", params.row.name)
-            ]);
-          }
+          sortable: true
         },
         {
-          title: "时间",
+          title: "Province",
+          key: "province",
+          sortable: true
+        },
+        {
+          title: "City",
+          key: "city",
+          sortable: true
+        },
+        {
+          title: "Address",
+          key: "address",
+          sortable: true
+        },
+        {
+          title: "Zip",
+          key: "zip",
+          sortable: true
+        },
+        {
+          title: "Date",
           key: "date",
           sortable: true
         },
@@ -125,19 +135,11 @@ export default {
           }
         }
       ],
-      dishesData: [
-        { id: 1, name: "菜品1", date: "2019-04-11" },
-        { id: 2, name: "菜品2", date: "2019-04-12" },
-        { id: 3, name: "菜品3", date: "2019-04-13" },
-        { id: 4, name: "菜品4", date: "2019-04-14" },
-        { id: 5, name: "菜品5", date: "2019-04-15" },
-        { id: 6, name: "菜品6", date: "2019-04-16" },
-        { id: 7, name: "菜品7", date: "2019-04-17" },
-        { id: 8, name: "菜品8", date: "2019-04-18" },
-        { id: 9, name: "菜品9", date: "2019-04-19" },
-        { id: 10, name: "菜品10", date: "2019-04-20" }
-      ]
+      dishesData: []
     };
+  },
+  mounted() {
+    this.getUserData(1);
   },
   methods: {
     show(index) {
@@ -150,6 +152,30 @@ export default {
     },
     remove(index) {
       this.dishesData.splice(index, 1);
+    },
+    getUserData(pageNum) {
+      console.log(pageNum);
+      let par = {
+        pageNum: pageNum,
+        id: '',
+        name: '',
+        province: '',
+        city: '',
+        zip: '',
+        startDay: '',
+        endDay: ''
+      };
+      console.log(par)
+      this.$http
+        .post("http://127.0.0.1:1111/cgi-bin/user_all.py", par, {
+          emulateJSON: true
+        })
+        .then(resp => {
+          console.log(resp);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };

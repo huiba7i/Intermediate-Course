@@ -1,12 +1,12 @@
 <template>
   <div class="login-box">
-    <Form class="form" ref="userData" :model="userData">
-      <FormItem prop="user">
+    <Form class="form" :ref="userData" :model="userData" :rules="rules">
+      <FormItem prop="name">
         <Input type="text" v-model="userData.name" placeholder="Username">
           <Icon type="ios-person-outline" slot="prepend"></Icon>
         </Input>
       </FormItem>
-      <FormItem prop="password">
+      <FormItem prop="pwd">
         <Input type="password" v-model="userData.pwd" placeholder="Password">
           <Icon type="ios-lock-outline" slot="prepend"></Icon>
         </Input>
@@ -31,6 +31,10 @@ export default {
       userData: {
         name: "",
         pwd: ""
+      },
+      rules: {
+        name: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
+        pwd: [{ required: true, message: "用户密码不能为空", trigger: "blur" }]
       }
     };
   },
@@ -42,17 +46,34 @@ export default {
       this.$router.push("/");
     },
     handleSubmit(n) {
-      let reg = /^\s*$/;
-      if (reg.test(n.anme) || reg.test(n.pwd)) {
-        this.$Message.success("请填写完整信息");
-        return;
-      }
-      console.log(n.name, n.pwd);
-      this.$.post("http://localhost:1111/cgi-bin/login.py", { name: n.name, pwd: n.pwd }, function(data) {
-        if (data == "success") {
-          console.log(data);
+      this.$refs[n].validate(valid => {
+        if (valid) {
+          this.$http
+            .post(
+              "http://127.0.0.1:1111/cgi-bin/login.py",
+              {
+                name: n.name,
+                pwd: n.pwd
+              },
+              { emulateJSON: true }
+            )
+            .then(resp => {
+              console.log(resp)
+              if (resp.data.ok == "success") {
+                this.$store.dispatch({
+                  type: "authenticateUser",
+                  userName: resp.data.name
+                });
+                this.$Message.success("登录成功");
+                this.$router.push("/");
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
         } else {
-          $("#info").text("用户名不存在或者密码错误");
+          this.$Message.success("登录失败");
+          this.$router.push("/login");
         }
       });
     }

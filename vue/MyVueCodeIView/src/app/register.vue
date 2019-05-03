@@ -1,17 +1,11 @@
 <template>
   <div class="reg-box">
-    <Form class="form" ref="user" :model="user" :label-width="70" :rules="rules">
-      <FormItem label="账号" prop="account">
-        <Input v-model="user.account" placeholder="昵称/手机号/邮箱"/>
+    <Form class="form" :ref="user" :model="user" :label-width="70" :rules="rules">
+      <FormItem label="姓名" prop="name">
+        <Input v-model="user.name" placeholder="姓名"/>
       </FormItem>
-      <FormItem label="密码" prop="password">
-        <Input type="password" v-model="user.password" placeholder="密码"/>
-      </FormItem>
-      <FormItem label="确认密码" prop="confirmPass">
-        <Input type="password" v-model="user.confirmPass" placeholder="密码"/>
-      </FormItem>
-      <FormItem label="手机号" prop="phone">
-        <Input v-model="user.phone" placeholder="手机号码"/>
+      <FormItem label="密码" prop="pwd">
+        <Input v-model="user.pwd" type="password" placeholder="密码"/>
       </FormItem>
       <FormItem label="性别" prop="sex" class="left">
         <RadioGroup v-model="user.sex">
@@ -19,17 +13,12 @@
           <Radio label="女"></Radio>
         </RadioGroup>
       </FormItem>
-      <FormItem label="爱好" prop="favor">
-        <CheckboxGroup v-model="user.favor" class="left">
-          <Checkbox label="休闲"></Checkbox>
-          <Checkbox label="娱乐"></Checkbox>
-          <Checkbox label="美食"></Checkbox>
-          <Checkbox label="购物"></Checkbox>
-        </CheckboxGroup>
+      <FormItem label="手机号码" prop="tel">
+        <Input v-model="user.tel" type="number" placeholder="手机号码"/>
       </FormItem>
       <FormItem style="text-align:center">
-        <Button type="primary" @click="registe('user')">注册</Button>
-        <Button type="info" style="margin-left:20px" @click="rest">重置</Button>
+        <Button type="primary" @click="reg(user)">注册</Button>
+        <Button type="text" style="margin-left:20px" @click="rest">重置</Button>
       </FormItem>
       <div class="bottom-home">
         <Button type="text" ghost @click="home">返回首页</Button>
@@ -41,95 +30,84 @@
 <script>
 export default {
   data() {
-    const accountDup = (rule, value, callback) => {
-      if (value == "") {
-        callback("账号不能为空");
-      } else if (value.length < 3) {
-        callback("长度至少为3");
-      }
-      this.$axios
-        .get("/sys/user/select?id=" + value)
-        .then(resp => {
-          if (resp.data) {
-            callback("账号已经被注册了");
-          } else {
-            callback();
-          }
-        })
-        .catch(error => {
-          callback(error);
-        });
-    };
-    const cpwd = (rule, value, callback) => {
-      if (value == "") {
-        callback("内容不能为空");
-      } else if (value != this.user.password) {
-        console.log(value);
-        console.log(this.user.password);
-        callback("密码不一致");
-      } else {
-        callback();
-      }
-    };
     return {
       user: {
-        account: "",
-        password: "",
-        confirmPass: "",
+        name: "",
+        pwd: "",
         sex: "",
-        favor: [],
-        phone: ""
+        tel: ""
       },
       rules: {
-        account: { validator: accountDup, trigger: "blur" },
-        password: [
-          { required: true, message: "密码不能为空", trigger: "blur" },
-          { pattern: /^\w{6,}$/, message: "密码不合法", trigger: "blur" }
-        ],
-        confirmPass: { validator: cpwd, trigger: "blur" },
-        phone: [
-          { required: true, message: "手机号码不能为空", trigger: "blur" },
+        name: [
+          { required: true, message: "用户名不能为空", trigger: "blur" },
           {
-            pattern: /^1[3578]\d{9}$/,
-            message: "手机号码不合法",
+            pattern: /^[\u4E00-\u9FA50-9a-zA-Z_]+$/,
+            message: "必须 3-10个中文字符、英文字母、数字及下划线",
             trigger: "blur"
           }
         ],
-        sex: { required: true, message: "性别是必选项", trigger: "change" },
-        favor: {
-          required: true,
-          type: "array",
-          min: 1,
-          message: "爱好至少有一个",
-          trigger: "change"
-        }
+        pwd: [
+          { required: true, message: "密码不能为空", trigger: "blur" },
+          {
+            pattern: /^[0-9a-zA-Z]{6,10}$/,
+            message: "必须 不能含有非法字符，长度在6-10之间",
+            trigger: "blur"
+          }
+        ],
+        sex: [{ required: true, message: "请选择性别", trigger: "blur" }],
+        tel: [
+          { required: true, message: "手机号码不能为空", trigger: "blur" },
+          {
+            pattern: /^[1][0-9]{10}$/,
+            message: "必须 只能是数字11位,且首位必须为1",
+            trigger: "blur"
+          }
+        ]
       }
     };
   },
   methods: {
-    registe(name) {
-      this.$refs[name].validate(valid => {
-        if (valid) {
-          this.$Message.success("注册成功");
-          this.user = {};
-        } else {
-          this.$Message.error("注册失败");
-        }
-      });
-    },
     rest() {
       this.user = {};
     },
     home() {
       this.$router.push("/");
+    },
+    reg(r) {
+      this.$refs[r].validate(valid => {
+        if (valid) {
+          this.$http
+            .post(
+              "http://127.0.0.1:1111/cgi-bin/register.py",
+              {
+                username: r.name,
+                userpwd: r.pwd,
+                usertel: r.tel,
+                usersex: r.sex
+              },
+              { emulateJSON: true }
+            )
+            .then(resp => {
+              this.$router.push("/login");
+            })
+            .catch(error => {
+              console.log(error);
+            });
+          console.log(r);
+          this.$Message.success("注册成功!");
+        } else {
+          console.log(r);
+          this.$Message.error("表单注册失败!");
+        }
+      });
     }
   }
 };
 </script>
 
+
 <style scoped>
 .reg-box {
-  background-color: red;
   background-image: url("/static/imgs/home/login.jpg");
   background-size: 100% 100%;
   position: fixed;

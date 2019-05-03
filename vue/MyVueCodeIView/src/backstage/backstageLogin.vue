@@ -1,18 +1,18 @@
 <template>
   <div class="back-box">
-    <Form class="form" ref="userData" :model="userData" :rules="ruleInline">
-      <FormItem prop="user">
-        <Input type="text" v-model="userData.user" placeholder="Username">
+    <Form class="form" :ref="userData" :model="userData" :rules="ruleInline">
+      <FormItem prop="name">
+        <Input type="text" v-model="userData.name" placeholder="Username">
           <Icon type="ios-person-outline" slot="prepend"></Icon>
         </Input>
       </FormItem>
-      <FormItem prop="password">
-        <Input type="password" v-model="userData.password" placeholder="Password">
+      <FormItem prop="pwd">
+        <Input type="password" v-model="userData.pwd" placeholder="Password">
           <Icon type="ios-lock-outline" slot="prepend"></Icon>
         </Input>
       </FormItem>
       <FormItem>
-        <Button type="primary" @click="handleSubmit('userData')">登录</Button>
+        <Button type="primary" @click="handleSubmit(userData)">登录</Button>
       </FormItem>
       <div class="bottom-home">
         <Button type="text" ghost @click="home">返回首页</Button>
@@ -24,55 +24,44 @@
 <script>
 export default {
   data() {
-    const verUser = (rule, value, callback) => {
-      if (value == "") {
-        callback("账号不能为空");
-      } else if (value == "back") {
-        callback();
-        this.$store.dispatch({
-          type: "authenticateUser",
-          backName: this.userData.user
-        });
-      } else {
-        callback("账号名错误");
-      }
-    };
-    const verPwd = (rule, value, callback) => {
-      if (value == "") {
-        callback("密码不能为空");
-      } else if (value == "123") {
-        callback();
-      } else {
-        callback("密码错误");
-      }
-    };
     return {
       userData: {
-        user: "",
-        password: ""
+        name: "",
+        pwd: ""
       },
       ruleInline: {
-        user: [
-          {
-            validator: verUser,
-            trigger: "blur"
-          }
-        ],
-        password: [
-          {
-            validator: verPwd,
-            trigger: "blur"
-          }
-        ]
+        name: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
+        pwd: [{ required: true, message: "用户密码不能为空", trigger: "blur" }]
       }
     };
   },
   methods: {
-    handleSubmit(name) {
-      this.$refs[name].validate(valid => {
+    handleSubmit(n) {
+      this.$refs[n].validate(valid => {
         if (valid) {
-          this.$Message.success("登录成功");
-          this.$router.push("/backHome");
+          this.$http
+            .post(
+              "http://127.0.0.1:1111/cgi-bin/backstage_login.py",
+              {
+                name: n.name,
+                pwd: n.pwd
+              },
+              { emulateJSON: true }
+            )
+            .then(resp => {
+              console.log(resp);
+              if (resp.data.ok == "success") {
+                this.$store.dispatch({
+                  type: "authenticateUser",
+                  backName: resp.data.name
+                });
+                this.$Message.success("登录成功");
+                this.$router.push("/backHome");
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
         } else {
           this.$Message.error("登录失败");
         }

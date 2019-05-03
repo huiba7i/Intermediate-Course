@@ -23,7 +23,7 @@
 
     <el-menu-item class="user" v-if="userName!=null">
       欢迎
-      <span>{{ userName }}</span>登录
+      <span class="username">{{ userName }}</span>登录
     </el-menu-item>
   </el-menu>
 </template>
@@ -72,5 +72,15 @@ export default {
 .search {
   float: right;
   margin-right: 50px;
+}
+.username{
+  font-size: 18px;
+  font-family: '楷体';
+  font-weight: 600;
+  color: rgb(228, 0, 0);
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 8px;
+  vertical-align: -1px;
 }
 </style>

@@ -109,7 +109,7 @@ export default {
     };
   },
   mounted() {
-    this.getCategory();
+    // this.getCategory();
   },
   methods: {
     seasonsDeatils(e) {
