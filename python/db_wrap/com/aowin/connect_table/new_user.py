@@ -4,6 +4,7 @@
 from com.aowin.connect_library import DB_util
 from com.aowin.modal import modal
 from com.aowin.modal import Page
+import json
 
 
 def inster(stu):
@@ -74,7 +75,15 @@ def select_all():
         # 将Tuple的list，转换成User对象的list
         users = []
         for u in cur.fetchall():
-            user = modal.User(u[0], u[1], u[2], u[3], u[4], u[5], u[6])
+            user = {
+                'id': u[0],
+                'name': u[1],
+                'province': u[2],
+                'city': u[3],
+                'address': u[4],
+                'zip': u[5],
+                'date': str(u[6])
+            }
             users.append(user)
         return users
     finally:
@@ -130,7 +139,15 @@ def select_condition_data(stu):
         # 将tuple的list 转成Student对象的list
         users = []
         for u in cur.fetchall():
-            user = modal.User(u[0], u[1], u[2], u[3], u[4], u[5], u[6])
+            user = {
+                'id': u[0],
+                'name': u[1],
+                'province': u[2],
+                'city': u[3],
+                'address': u[4],
+                'zip': u[5],
+                'date': str(u[6])
+            }
             users.append(user)
         return users
     finally:
@@ -139,6 +156,7 @@ def select_condition_data(stu):
 
 
 def select_data(stu, pageNum):
+    print(stu)
     """
        分页查询
     :param stu: 字典对象
@@ -162,8 +180,9 @@ def select_data(stu, pageNum):
 
         params = []  # 用来存放具体的条件参数
         if 'id' in stu:
-            sql += ' AND ID = %s'
-            params.append(stu['id'])
+            if stu['id']:
+                sql += ' AND ID = %s'
+                params.append(stu['id'])
         if 'name' in stu:
             if stu['name']:
                 sql += ' AND NAME LIKE concat("%", %s, "%")'
@@ -234,3 +253,11 @@ def select_data(stu, pageNum):
     finally:
         if conn:
             conn.close()
+
+
+if __name__ == '__main__':
+    stu = {'id': ''}
+    n = select_data(stu, 1)
+    page = json.dumps(n.__dict__, ensure_ascii=False)
+    print(n)
+    print(page)

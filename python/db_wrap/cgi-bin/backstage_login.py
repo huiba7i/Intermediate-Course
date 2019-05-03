@@ -1,9 +1,10 @@
 """
-    前台登录
+    后台登录
 """
+
 import encoding
 import cgi
-from com.aowin.connect_table import new_Login
+from com.aowin.connect_table import back_login
 import json
 
 # 1、获取客户端数据
@@ -20,7 +21,7 @@ if not name or not password:
     print('')
     print('error', end='')
 else:
-    user = new_Login.login(name, password)
+    user = back_login.back_login(name, password)
     if user:
         print('access-control-allow-origin: *')
         print('')

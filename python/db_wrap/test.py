@@ -1,5 +1,6 @@
 from com.aowin.connect_table import new_Login
 from com.aowin.connect_table import new_user
+from com.aowin.connect_table import back_login
 
 # 新增一条用户登录信息
 # stu = ('tom', '123', '12345678900', '女')
@@ -10,8 +11,6 @@ from com.aowin.connect_table import new_user
 # sel = ('橙橙', '123456')
 # s = new_Login.select_data(sel)
 # print(s)
-
-
 
 
 # 新增一条用户信息
@@ -34,8 +33,8 @@ from com.aowin.connect_table import new_user
 #     print(i)
 
 # 分页查询
-# stu = {1}
-# stus = new_user.select_data(stu, 1)
+# stu = {'province': '四川省'}
+# stus = new_user.select_data(stu, 2)
 # for i in stus.data:
 #     print(i)
 
@@ -44,8 +43,3 @@ from com.aowin.connect_table import new_user
 # stus = new_user.select_condition_data(stu)
 # for i in stus:
 #     print(i)
-
-
-
-
-

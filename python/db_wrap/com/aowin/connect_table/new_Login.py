@@ -3,6 +3,7 @@
 """
 from com.aowin.connect_library import DB_util
 from com.aowin.modal import modal
+import re
 
 
 def insert(stu):
@@ -62,5 +63,16 @@ def login(name, pwd):
 
 
 if __name__ == '__main__':
-    user = login('tom', '123')
-    print(user)
+    # user = login('tom', '123')
+    # print(user)
+
+    # stu = ('jun', '222', '12345678900', '男')
+    # n = insert(stu)
+    # print(n)
+
+    print(re.search('^[男|女|保密]$', '保密'))
+    if not re.search('^[男|女]$', '保密'):
+        print('error')
+    else:
+        print('ok')
+

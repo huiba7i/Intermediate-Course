@@ -48,4 +48,18 @@ class User:
 
     def __str__(self):
         return "{'id': %d, 'name': %s, 'province': %s, 'city': %s, 'address': %s, 'zip': %s, 'data': %s}" % (
-                self.id, self.name, self.province, self.city, self.address, self.zip, self.date)
+            self.id, self.name, self.province, self.city, self.address, self.zip, self.date)
+
+
+class Backstage_login:
+    """
+        后台用户登录表
+    """
+
+    def __init__(self, id, name, pwd):
+        self.id = id
+        self.name = name
+        self.pwd = pwd
+
+    def __str__(self):
+        return "{'id': %d, 'name': %s, 'pwd': %s}" % (self.id, self.name, self.pwd)
