@@ -5,6 +5,7 @@ from com.aowin.connect_library import DB_util
 from com.aowin.modal import modal
 from com.aowin.modal import Page
 import json
+import re
 
 
 def inster(stu):
@@ -111,27 +112,33 @@ def select_condition_data(stu):
         sql = 'SELECT * FROM user WHERE 1 = 1'
         params = []  # 用来存放具体的条件参数
         if 'id' in stu:
-            sql += ' AND ID = %s'
-            params.append(stu['id'])
+            if stu['id']:
+                sql += ' AND ID = %s'
+                params.append(stu['id'])
         if 'name' in stu:
             if stu['name']:
                 sql += ' AND NAME LIKE concat("%", %s, "%")'
                 params.append(stu['name'])
         if 'province' in stu:
-            sql += ' AND PROVINCE = %s'
-            params.append(stu['province'])
+            if stu['province']:
+                sql += ' AND PROVINCE = %s'
+                params.append(stu['province'])
         if 'city' in stu:
-            sql += ' AND CITY = %s'
-            params.append(stu['city'])
+            if stu['city']:
+                sql += ' AND CITY = %s'
+                params.append(stu['city'])
         if 'zip' in stu:
-            sql += ' AND ZIP = %s'
-            params.append(stu['zip'])
+            if stu['zip']:
+                sql += ' AND ZIP = %s'
+                params.append(stu['zip'])
         if 'startDay' in stu:
-            sql += ' AND DATE >= %s'
-            params.append(stu['startDay'])
+            if stu['startDay']:
+                sql += ' AND DATE >= %s'
+                params.append(stu['startDay'])
         if 'endDay' in stu:
-            sql += ' AND DATE <= %s'
-            params.append(stu['endDay'])
+            if stu['endDay']:
+                sql += ' AND DATE <= %s'
+                params.append(stu['endDay'])
 
         print(sql)
         cur.execute(sql, tuple(params))
@@ -156,7 +163,6 @@ def select_condition_data(stu):
 
 
 def select_data(stu, pageNum):
-    print(stu)
     """
        分页查询
     :param stu: 字典对象
@@ -256,8 +262,13 @@ def select_data(stu, pageNum):
 
 
 if __name__ == '__main__':
-    stu = {'id': ''}
-    n = select_data(stu, 1)
-    page = json.dumps(n.__dict__, ensure_ascii=False)
+    # n = re.search(r'(\d{4}-\d{2}-\d{2})', '2019-02-2')
+    # print(n)
+    # if not re.search('^[\u4E00-\u9FA50-9a-zA-Z_]{3,6}$', 'hahah'):
+    #     print('error')
+    # else:
+    #     print('ok')
+
+    stu = {'startDay': '20180101', 'endDay': '20190101'}
+    n = select_condition_data(stu)
     print(n)
-    print(page)
