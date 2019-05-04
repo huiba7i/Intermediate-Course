@@ -1,7 +1,7 @@
 <template>
-  <div class="add-box">
-    <h1 :style="{ 'text-align': 'left', 'padding': '20px' }">新增用户</h1>
-    <Card class="add-card">
+  <div class="update-box">
+    <h1 :style="{ 'text-align': 'left', 'padding': '20px' }">修改用户</h1>
+    <Card class="update-card">
       <Form
         :model="user"
         :ref="user"
@@ -28,13 +28,14 @@
           <Input type="date" v-model="user.date" placeholder="请输入出生日期"></Input>
         </FormItem>
         <FormItem>
-          <Button type="primary" @click="add(user)">提交</Button>
-          <Button style="margin-left: 8px" type="text">重置</Button>
+          <Button type="primary" @click="update(user)">修改</Button>
+          <Button style="margin-left: 8px" type="text" @click="()=>{$router.push('/dish')}">取消</Button>
         </FormItem>
       </Form>
     </Card>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -69,7 +70,7 @@ export default {
         zip: [
           { required: true, message: "必须 邮编不能为空", trigger: "blur" },
           {
-            pattern: /^[0-9]{6}$/,
+            pattern: /[0-9]{6}/,
             message: "必须 6位数数字",
             trigger: "blur"
           }
@@ -82,49 +83,77 @@ export default {
             trigger: "blur"
           }
         ]
-      }
+      },
+      id: this.$route.params.id
     };
   },
   methods: {
-    add(e) {
+    // 更新信息
+    update(e) {
       this.$refs[e].validate(valid => {
         if (valid) {
           this.$http
             .post(
-              "http://127.0.0.1:1111/cgi-bin/user_insert.py",
+              "http://127.0.0.1:1111/cgi-bin/user_update.py",
               {
                 name: e.name,
                 province: e.province,
                 city: e.city,
                 address: e.address,
                 zip: e.zip,
-                date: e.date
+                date: e.date,
+                id: this.id
               },
               {
                 emulateJSON: true
               }
             )
             .then(resp => {
-              // console.log(resp);
+              console.log(resp);
               if (resp.data == "success") {
-                this.$Message.success("添加成功");
-                this.$router.push('/dish')
+                this.$Message.success("修改成功");
+                this.$router.push("/dish");
               }
             })
             .catch(error => {
               console.log(error);
             });
         } else {
-          this.$Message.error("添加失败");
+          this.$Message.error("修改失败");
         }
       });
+    },
+    //根据id，获取个人用户信息
+    getSingleData(id) {
+      this.$http
+        .post(
+          "http://127.0.0.1:1111/cgi-bin/user_conditional_data.py",
+          { id: id },
+          { emulateJSON: true }
+        )
+        .then(resp => {
+          // console.log(resp);
+          this.user.name = resp.data[0].name
+          this.user.province = resp.data[0].province
+          this.user.city = resp.data[0].city
+          this.user.address = resp.data[0].address
+          this.user.zip = resp.data[0].zip
+          this.user.date = resp.data[0].date
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
-  }
+  },
+  mounted() {
+    this.getSingleData(this.id);
+  },
+ 
 };
 </script>
 
 <style scoped>
-.add-box {
+.update-box {
   padding: 40px 20px;
 }
 </style>

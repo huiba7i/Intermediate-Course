@@ -16,7 +16,7 @@ import BackHome from '@/backstage/backHome'
 import HomeCharts from '@/backstage/homeCharts'
 import Dish from '@/backstage/contentManage/dish'
 import Comment from '@/backstage/contentManage/comment'
-import BasicUser from '@/backstage/userManage/basicUser'
+import UpdateUser from '@/backstage/userManage/updateUser'
 import AddUser from '@/backstage/userManage/addUser'
 
 Vue.use(Router)
@@ -64,7 +64,7 @@ export default new Router({
             index: 1,
             showContent: false,
             singleDetails: true,
-            
+
           },
         },
         {
@@ -137,8 +137,10 @@ export default new Router({
           }
         },
         {
-          path: '/basicUser', components: {
-            backContent: BasicUser
+          path: '/updateUser/:id',
+          name: 'updateUser',
+          components: {
+            backContent: UpdateUser
           }
         },
         {
