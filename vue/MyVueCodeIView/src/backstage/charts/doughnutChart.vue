@@ -5,9 +5,12 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      chartData: []
+    };
   },
   mounted() {
+    this.getChartData();
     this.drawingOne();
   },
   methods: {
@@ -22,7 +25,6 @@ export default {
         },
         // 图例组件
         legend: {
-           
           orient: "vertical",
           x: "left",
           data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
@@ -63,6 +65,17 @@ export default {
           }
         ]
       });
+    },
+    getChartData() {
+      this.$http
+        .get("http://127.0.0.1:1111/cgi-bin/doughnutChart.py")
+        .then(resp => {
+          // console.log(resp);
+          this.chartData = resp.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };

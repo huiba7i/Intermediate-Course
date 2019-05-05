@@ -6,7 +6,7 @@
         <Col :span="6">
           <ButtonGroup>
             <Button type="success" icon="md-add" @click="()=>{$router.push('/addUser')}">新增</Button>
-            <Button type="info" icon="md-copy">保存</Button>
+            <Button icon="ios-download-outline" type="info" @click="exportData">导出</Button>
             <Button type="warning" icon="ios-albums-outline">审核</Button>
             <Button type="error" icon="ios-trash-outline">删除</Button>
           </ButtonGroup>
@@ -24,7 +24,13 @@
         </Col>
         <Col :span="9">
           <Date-picker type="date" placeholder="选择开始日期" v-model="startDay" style="width: 200px"></Date-picker>-
-          <Date-picker type="date" placeholder="选择结束日期" v-model="endDay" style="width: 200px"></Date-picker>
+          <Date-picker
+            type="date"
+            placeholder="选择结束日期"
+            v-model="endDay"
+            style="width: 200px"
+            @on-change="changeTime"
+          ></Date-picker>
         </Col>
       </Row>
       <Table
@@ -126,7 +132,15 @@ export default {
                   },
                   on: {
                     click: () => {
-                      this.remove(params.row);
+                      this.$Modal.confirm({
+                        content: `<p>确定要删除用户<b> ${
+                          params.row.name
+                        } </b>吗？</p>`,
+                        onOk: () => {
+                          this.remove(params.row);
+                        },
+                        onCancel: () => {}
+                      });
                     }
                   }
                 },
@@ -148,9 +162,26 @@ export default {
     this.getUserData(1);
   },
   methods: {
+    exportData() {
+      this.$refs.selection.exportCsv({
+        filename: "当前数据"
+      });
+    },
+    // 获取时间段获取用户信息
+    changeTime() {
+      this.getUserData(1);
+    },
     // 分页获取用户信息
     getUserData(pageNum) {
-      console.log(this.startDay, this.endDay);
+      let startDay = "";
+      let endDay = "";
+      if (this.startDay === "") {
+        startDay = "";
+        endDay = "";
+      } else {
+        startDay = this.dateFormat(this.startDay);
+        endDay = this.dateFormat(this.endDay);
+      }
       let par = {
         pageNum: pageNum,
         id: "",
@@ -158,16 +189,15 @@ export default {
         province: "",
         city: "",
         zip: "",
-        startDay: this.startDay,
-        endDay: this.endDay
+        startDay: startDay,
+        endDay: endDay
       };
-
       this.$http
         .post("http://127.0.0.1:1111/cgi-bin/user_all_page.py", par, {
           emulateJSON: true
         })
         .then(resp => {
-          console.log(resp);
+          // console.log(resp);
           this.dataPage = resp.data;
           this.dishesData = resp.data.data;
         })
@@ -180,19 +210,23 @@ export default {
       this.getUserData(e);
     },
     // 获取全部用户信息
+    getUserAll() {
+      this.$http
+        .get("http://127.0.0.1:1111/cgi-bin/user_all.py")
+        .then(resp => {
+          // console.log(resp);
+          this.dishesData = resp.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    // 下拉选择框
     changeOption(e) {
       if (e == "全部") {
         this.option = e;
         this.isShow = false;
-        this.$http
-          .get("http://127.0.0.1:1111/cgi-bin/user_all.py")
-          .then(resp => {
-            // console.log(resp);
-            this.dishesData = resp.data;
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        this.getUserAll();
       } else if (e == "分页") {
         this.option = e;
         this.isShow = true;
@@ -228,24 +262,7 @@ export default {
           console.error(error);
         });
     },
-    // // 时间查找
-    // timeLookup() {
-    //   let par = {
-    //     startDay: this.startDay,
-    //     endDay: this.endDay
-    //   };
-
-    //   this.$http
-    //     .post("http://127.0.0.1:1111/cgi-bin/user_all_page.py", par, {
-    //       emulateJSON: true
-    //     })
-    //     .then(resp => {
-    //       console.log(resp);
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-    // },
+    // 时间戳
     dateFormat: function(time) {
       var date = new Date(time);
       var year = date.getFullYear();

@@ -11,20 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // '/cook': {
-      //   target: 'http://apis.juhe.cn',
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/cook': '/cook'
-      //   }
-      // },
-      // '/cgi-bin': {
-      //   target: 'http://127.0.0.1:1111/',
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/cgi-bin': '/cgi-bin'
-      //   }
-      // }
+      '/cook': {
+        target: 'http://apis.juhe.cn',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/cook': '/cook'
+        }
+      }
     },
 
     // Various Dev Server settings

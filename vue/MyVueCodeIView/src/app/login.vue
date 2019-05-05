@@ -59,13 +59,15 @@ export default {
             )
             .then(resp => {
               console.log(resp)
-              if (resp.data.ok == "success") {
+              if (resp.data.isOk == "success") {
                 this.$store.dispatch({
                   type: "authenticateUser",
                   userName: resp.data.name
                 });
                 this.$Message.success("登录成功");
                 this.$router.push("/");
+              } else {
+                this.$Message.error('登录名或密码错误');
               }
             })
             .catch(error => {

@@ -93,10 +93,8 @@ export default {
             .catch(error => {
               console.log(error);
             });
-          console.log(r);
           this.$Message.success("注册成功!");
         } else {
-          console.log(r);
           this.$Message.error("表单注册失败!");
         }
       });

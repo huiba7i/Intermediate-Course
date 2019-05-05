@@ -49,7 +49,7 @@ export default {
               { emulateJSON: true }
             )
             .then(resp => {
-              console.log(resp);
+              // console.log(resp);
               if (resp.data.ok == "success") {
                 this.$store.dispatch({
                   type: "authenticateUser",

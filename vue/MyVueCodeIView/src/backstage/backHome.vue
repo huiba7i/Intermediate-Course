@@ -48,7 +48,8 @@
               <span @click="()=>{$router.push('/addUser')}">新增用户</span>
             </MenuItem>
             <MenuItem name="2-2">
-              <span @click="()=>{$router.push('/updateUser')}">修改用户</span>
+            <span @click="()=>{$router.push('/dish')}">修改用户</span>
+              <!-- <span @click="()=>{$router.push('/updateUser')}">修改用户</span> -->
             </MenuItem>
           </Submenu>
           <Submenu name="4">
@@ -187,7 +188,7 @@ export default {
 /* 内容 */
 .content-layout {
   background-color: #e9ecf3;
-  padding: 80px 0 0 300px;
+  padding: 80px 0 250px 300px;
   z-index: 1;
 }
 </style>

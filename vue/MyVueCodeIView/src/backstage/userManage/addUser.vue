@@ -12,24 +12,27 @@
         <FormItem label="用户名" prop="name">
           <Input v-model="user.name" placeholder="请输入用户名"></Input>
         </FormItem>
-        <FormItem label="省份" prop="province">
-          <Input v-model="user.province" placeholder="请输入省市"></Input>
+        <FormItem label="省份/城市">
+          <Cascader
+            @on-change="handleChange"
+            :data="ascaderData"
+            trigger="hover"
+            :value.sync="ascaderValue"
+            placeholder="请选择省份"
+          ></Cascader>
         </FormItem>
-        <FormItem label="城市" prop="city">
-          <Input v-model="user.city" placeholder="请输入城市"></Input>
-        </FormItem>
-        <FormItem label="住址" prop="address">
+        <FormItem label="详细住址" prop="address">
           <Input v-model="user.address" placeholder="请输入住址"></Input>
         </FormItem>
         <FormItem label="邮编" prop="zip">
           <Input v-model="user.zip" placeholder="请输入邮编"></Input>
         </FormItem>
-        <FormItem label="出生日期" prop="date">
-          <Input type="date" v-model="user.date" placeholder="请输入出生日期"></Input>
+        <FormItem label="出生日期" :style="{'text-align': 'left'}">
+          <Date-picker type="date" v-model="user.date" placeholder="请选择出生日期" style="width: 260px"></Date-picker>
         </FormItem>
         <FormItem>
           <Button type="primary" @click="add(user)">提交</Button>
-          <Button style="margin-left: 8px" type="text">重置</Button>
+          <Button style="margin-left: 8px" type="text" @click="rest">重置</Button>
         </FormItem>
       </Form>
     </Card>
@@ -37,13 +40,12 @@
 </template>
 
 <script>
+import cascader from "./Cascader.vue";
 export default {
   data() {
     return {
       user: {
         name: "",
-        province: "",
-        city: "",
         address: "",
         zip: "",
         date: ""
@@ -52,16 +54,10 @@ export default {
         name: [
           { required: true, message: "用户名不能为空", trigger: "blur" },
           {
-            pattern: /^[\u4E00-\u9FA50-9a-zA-Z_]{3,6}$/,
+            pattern: /^[\u4E00-\u9FA50-9a-zA-Z_]{3,10}$/,
             message: "必须 3-10个中文字符、英文字母、数字及下划线",
             trigger: "blur"
           }
-        ],
-        province: [
-          { required: true, message: "必须 省份不能为空", trigger: "blur" }
-        ],
-        city: [
-          { required: true, message: "必须 城市不能为空", trigger: "blur" }
         ],
         address: [
           { required: true, message: "必须 住址不能为空", trigger: "blur" }
@@ -73,20 +69,32 @@ export default {
             message: "必须 6位数数字",
             trigger: "blur"
           }
-        ],
-        date: [
-          { required: true, message: "必填 出生日期不能为空", trigger: "blur" },
-          {
-            pattern: /(\d{4}-\d{2}-\d{2})/,
-            message: "必须 格式yyyy-mm-dd",
-            trigger: "blur"
-          }
         ]
-      }
+      },
+      ascaderData: cascader,
+      ascaderValue: [],
+      selectedValue: []
     };
   },
   methods: {
+    rest() {
+      this.user = {};
+      this.ascaderValue = [];
+      this.selectedValue = [];
+    },
+    handleChange(value, selectedData) {
+      this.selectedValue = selectedData;
+    },
     add(e) {
+      if (this.selectedValue.length === 0) {
+        this.$Message.warning("请选择省市");
+        return;
+      }
+      if (e.date === "") {
+        this.$Message.warning("请选择出生日期");
+        return;
+      }
+
       this.$refs[e].validate(valid => {
         if (valid) {
           this.$http
@@ -94,11 +102,11 @@ export default {
               "http://127.0.0.1:1111/cgi-bin/user_insert.py",
               {
                 name: e.name,
-                province: e.province,
-                city: e.city,
+                province: this.selectedValue[0].label,
+                city: this.selectedValue[1].label,
                 address: e.address,
                 zip: e.zip,
-                date: e.date
+                date: this.dateFormat(e.date)
               },
               {
                 emulateJSON: true
@@ -108,7 +116,7 @@ export default {
               // console.log(resp);
               if (resp.data == "success") {
                 this.$Message.success("添加成功");
-                this.$router.push('/dish')
+                this.$router.push("/dish");
               }
             })
             .catch(error => {
@@ -118,6 +126,16 @@ export default {
           this.$Message.error("添加失败");
         }
       });
+    },
+    dateFormat: function(time) {
+      var date = new Date(time);
+      var year = date.getFullYear();
+      var month =
+        date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1;
+      var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+      return year + "-" + month + "-" + day;
     }
   }
 };
