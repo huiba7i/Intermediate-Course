@@ -1,5 +1,5 @@
 """
-    后台修改用户信息
+    后台新增用户信息
 """
 import encoding
 import cgi
@@ -15,7 +15,7 @@ address = fs.getvalue('address')
 zip = fs.getvalue('zip')
 date = fs.getvalue('date')
 
-if not re.search('^[\u4E00-\u9FA50-9a-zA-Z_]{3,6}$', name):
+if not re.search('^[\u4E00-\u9FA50-9a-zA-Z_]{3,10}$', name):
     print('access-control-allow-origin: *')
     print('')
     print('用户名错误', end='')

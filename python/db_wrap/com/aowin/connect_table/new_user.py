@@ -269,6 +269,6 @@ if __name__ == '__main__':
     # else:
     #     print('ok')
 
-    stu = {'startDay': '20180101', 'endDay': '20190101'}
+    stu = {'startDay': 'Wed May 01 2019 00:00:00 GMT+0800 (中国标准时间)', 'endDay': ' Thu May 30 2019 00:00:00 GMT+0800 (中国标准时间)'}
     n = select_condition_data(stu)
     print(n)

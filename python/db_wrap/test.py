@@ -1,6 +1,7 @@
 from com.aowin.connect_table import new_Login
 from com.aowin.connect_table import new_user
 from com.aowin.connect_table import back_login
+import time
 
 # 新增一条用户登录信息
 # stu = ('tom', '123', '12345678900', '女')

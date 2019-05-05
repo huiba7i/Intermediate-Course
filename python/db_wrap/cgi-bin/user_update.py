@@ -21,7 +21,7 @@ if not id:
     print('access-control-allow-origin: *')
     print('')
     print('必须传入ID', end='')
-elif not re.search('^[\u4E00-\u9FA50-9a-zA-Z_]{3,6}$', name):
+elif not re.search('[\u4E00-\u9FA50-9a-zA-Z_]{3,6}', name):
     print('access-control-allow-origin: *')
     print('')
     print('用户名错误', end='')

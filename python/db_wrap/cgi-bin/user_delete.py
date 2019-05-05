@@ -1,5 +1,5 @@
 """
-    后台删除
+    后台删除一条用户信息
 """
 import encoding
 import cgi

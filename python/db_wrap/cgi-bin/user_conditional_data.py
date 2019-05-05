@@ -1,6 +1,9 @@
+"""
+    后台根据id，获取个人用户信息
+"""
+
 import encoding
 import cgi
-import re
 import json
 from com.aowin.connect_table import new_user
 

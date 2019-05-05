@@ -38,4 +38,3 @@ else:
     print('Access-Control-Allow-Origin: *')
     print('')
     print('error', end='')
-
