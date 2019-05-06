@@ -40,10 +40,11 @@
     <session id="566936381">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="12" />
+          <entry key="project.closed" value="13" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.22" value="1" />
+          <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.27" value="1" />
@@ -51,29 +52,29 @@
           <entry key="project.open.time.5" value="3" />
           <entry key="project.open.time.54" value="1" />
           <entry key="project.open.time.56" value="1" />
-          <entry key="project.opened" value="13" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="156" />
+          <entry key="py" value="157" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="156" />
+          <entry key="Python" value="157" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="23" />
-          <entry key="py" value="13194" />
+          <entry key="py" value="13212" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="23" />
-          <entry key="Python" value="13179" />
+          <entry key="Python" value="13197" />
           <entry key="SQL" value="15" />
         </counts>
       </usages-collector>
@@ -81,26 +82,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cgi-bin/login.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="645">
-              <caret line="37" selection-start-line="37" selection-end-line="37" />
-              <folding>
-                <element signature="e#17#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cgi-bin/user_update.py">
+        <entry file="file://$PROJECT_DIR$/cgi-bin/backstage_login.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="23" column="50" selection-start-line="23" selection-start-column="50" selection-end-line="23" selection-end-column="50" />
-              <folding>
-                <element signature="e#26#41#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="533">
+              <caret line="35" column="17" lean-forward="true" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -133,7 +119,6 @@
         <option value="$PROJECT_DIR$/cgi-bin/register.py" />
         <option value="$PROJECT_DIR$/com/aowin/modal/modal.py" />
         <option value="$PROJECT_DIR$/com/aowin/connect_table/back_login.py" />
-        <option value="$PROJECT_DIR$/cgi-bin/backstage_login.py" />
         <option value="$PROJECT_DIR$/cgi-bin/user_all.py" />
         <option value="$PROJECT_DIR$/com/aowin/connect_table/new_user.py" />
         <option value="$PROJECT_DIR$/test.py" />
@@ -146,6 +131,7 @@
         <option value="$PROJECT_DIR$/cgi-bin/doughnutChart.py" />
         <option value="$PROJECT_DIR$/cgi-bin/login.py" />
         <option value="$PROJECT_DIR$/cgi-bin/user_update.py" />
+        <option value="$PROJECT_DIR$/cgi-bin/backstage_login.py" />
       </list>
     </option>
   </component>
@@ -155,7 +141,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="264" />
     <option name="y" value="-9" />
     <option name="width" value="974" />
@@ -169,7 +155,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -218,6 +203,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -381,10 +367,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15031983" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15191898" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -486,20 +472,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cgi-bin/backstage_login.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="21" column="26" lean-forward="true" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1288">
           <caret line="46" selection-start-line="46" selection-end-line="46" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -514,9 +490,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-504">
           <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-          <folding>
-            <element signature="e#28#73#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -551,10 +524,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="2" selection-start-column="2" selection-end-column="2" />
-          <folding>
-            <marker date="1557040631259" expanded="true" signature="82:87" ph="..." />
-            <marker date="1557040631259" expanded="true" signature="456:917" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -583,9 +552,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="15" column="49" lean-forward="true" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
-          <folding>
-            <element signature="e#21#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -593,9 +559,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
           <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
-          <folding>
-            <element signature="e#23#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -603,9 +566,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="449">
           <caret line="32" column="50" lean-forward="true" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
-          <folding>
-            <element signature="e#29#44#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -620,15 +580,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28">
           <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-          <folding>
-            <element signature="e#21#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cgi-bin/login.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
+        <state relative-caret-position="952">
           <caret line="37" selection-start-line="37" selection-end-line="37" />
           <folding>
             <element signature="e#17#32#0" expanded="true" />
@@ -643,6 +600,13 @@
           <folding>
             <element signature="e#26#41#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cgi-bin/backstage_login.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="533">
+          <caret line="35" column="17" lean-forward="true" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
         </state>
       </provider>
     </entry>

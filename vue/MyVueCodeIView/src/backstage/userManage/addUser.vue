@@ -2,14 +2,8 @@
   <div class="add-box">
     <h1 :style="{ 'text-align': 'left', 'padding': '20px' }">新增用户</h1>
     <Card class="add-card">
-      <Form
-        :model="user"
-        :ref="user"
-        :rules="rules"
-        :label-width="100"
-        :style="{ 'margin': '20px 30%' }"
-      >
-        <FormItem label="用户名" prop="name">
+      <Form :model="user" :ref="user" :label-width="100" :style="{ 'margin': '20px 30%' }">
+        <FormItem label="用户名">
           <Input v-model="user.name" placeholder="请输入用户名"></Input>
         </FormItem>
         <FormItem label="省份/城市">
@@ -17,14 +11,14 @@
             @on-change="handleChange"
             :data="ascaderData"
             trigger="hover"
-            :value.sync="ascaderValue"
             placeholder="请选择省份"
+            :value.sync="ascaderValue"
           ></Cascader>
         </FormItem>
-        <FormItem label="详细住址" prop="address">
+        <FormItem label="详细住址">
           <Input v-model="user.address" placeholder="请输入住址"></Input>
         </FormItem>
-        <FormItem label="邮编" prop="zip">
+        <FormItem label="邮编">
           <Input v-model="user.zip" placeholder="请输入邮编"></Input>
         </FormItem>
         <FormItem label="出生日期" :style="{'text-align': 'left'}">
@@ -86,46 +80,51 @@ export default {
       this.selectedValue = selectedData;
     },
     add(e) {
-      if (this.selectedValue.length === 0) {
-        this.$Message.warning("请选择省市");
+      if (e.name === "") {
+        this.$Message.warning("必须用户名不能为空");
         return;
-      }
-      if (e.date === "") {
-        this.$Message.warning("请选择出生日期");
+      } else if (!/^[\u4E00-\u9FA50-9a-zA-Z_]{3,10}$/.test(e.name)) {
+        this.$Message.warning("必须 3-10个中文字符、英文字母、数字及下划线");
         return;
+      } else if (this.selectedValue.length === 0) {
+        this.$Message.warning("必须 请选择省市");
+        return;
+      } else if (e.address === "") {
+        this.$Message.warning("必须 请填写住址");
+        return;
+      } else if (!/^[0-9]{6}$/.test(e.zip)) {
+        this.$Message.warning("必须 请填写6位数邮编");
+        return;
+      } else if (e.date === "") {
+        this.$Message.warning("必须 请选择出生日期");
+        return;
+      } else {
+        this.$http
+          .post(
+            "http://127.0.0.1:1111/cgi-bin/user_insert.py",
+            {
+              name: e.name,
+              province: this.selectedValue[0].label,
+              city: this.selectedValue[1].label,
+              address: e.address,
+              zip: e.zip,
+              date: this.dateFormat(e.date)
+            },
+            {
+              emulateJSON: true
+            }
+          )
+          .then(resp => {
+            // console.log(resp);
+            if (resp.data == "success") {
+              this.$Message.success("添加成功");
+              this.$router.push("/dish");
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
-
-      this.$refs[e].validate(valid => {
-        if (valid) {
-          this.$http
-            .post(
-              "http://127.0.0.1:1111/cgi-bin/user_insert.py",
-              {
-                name: e.name,
-                province: this.selectedValue[0].label,
-                city: this.selectedValue[1].label,
-                address: e.address,
-                zip: e.zip,
-                date: this.dateFormat(e.date)
-              },
-              {
-                emulateJSON: true
-              }
-            )
-            .then(resp => {
-              // console.log(resp);
-              if (resp.data == "success") {
-                this.$Message.success("添加成功");
-                this.$router.push("/dish");
-              }
-            })
-            .catch(error => {
-              console.log(error);
-            });
-        } else {
-          this.$Message.error("添加失败");
-        }
-      });
     },
     dateFormat: function(time) {
       var date = new Date(time);

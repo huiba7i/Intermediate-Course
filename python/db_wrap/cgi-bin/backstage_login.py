@@ -26,7 +26,7 @@ else:
         print('access-control-allow-origin: *')
         print('')
         dUser = {
-            'ok': 'success',
+            'isOk': 'success',
             'name': user[1]
         }
         userInfo = json.dumps(dUser)
@@ -34,4 +34,8 @@ else:
     else:
         print('access-control-allow-origin: *')
         print('')
-        print('error', end='')
+        dUser = {
+            'isOk': 'error',
+        }
+        userInfo = json.dumps(dUser)
+        print(userInfo)
