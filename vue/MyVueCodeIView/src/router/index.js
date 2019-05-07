@@ -18,6 +18,7 @@ import Dish from '@/backstage/contentManage/dish'
 import Comment from '@/backstage/contentManage/comment'
 import UpdateUser from '@/backstage/userManage/updateUser'
 import AddUser from '@/backstage/userManage/addUser'
+import UploadFile from '@/backstage/articleManage/uploadFile'
 
 Vue.use(Router)
 
@@ -146,6 +147,11 @@ export default new Router({
         {
           path: '/addUser', components: {
             backContent: AddUser
+          }
+        },
+        {
+          path: '/uploadFile', components: {
+            backContent: UploadFile
           }
         }
       ]

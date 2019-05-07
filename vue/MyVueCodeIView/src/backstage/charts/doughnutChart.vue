@@ -10,11 +10,11 @@ export default {
     };
   },
   mounted() {
-    this.getChartData();
     this.drawingOne();
   },
   methods: {
     drawingOne() {
+      let getName = [];
       let chart = this.$echarts.init(document.getElementById("chartOne"));
 
       chart.setOption({
@@ -22,12 +22,6 @@ export default {
         tooltip: {
           trigger: "item",
           formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        // 图例组件
-        legend: {
-          orient: "vertical",
-          x: "left",
-          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
         },
         // 系列列表。每个系列通过 type 决定自己的图表类型
         series: [
@@ -54,24 +48,31 @@ export default {
               normal: {
                 show: false
               }
-            },
-            data: [
-              { value: 335, name: "直接访问" },
-              { value: 310, name: "邮件营销" },
-              { value: 234, name: "联盟广告" },
-              { value: 135, name: "视频广告" },
-              { value: 1548, name: "搜索引擎" }
-            ]
+            }
           }
         ]
       });
-    },
-    getChartData() {
+
       this.$http
-        .get("http://127.0.0.1:1111/cgi-bin/doughnutChart.py")
+        .get("/cgi-bin/doughnutChart.py")
         .then(resp => {
           // console.log(resp);
-          this.chartData = resp.data;
+          for (let d of resp.data) {
+            getName.push(d.name);
+          }
+          chart.setOption({
+            // 图例组件
+            legend: {
+              orient: "vertical",
+              x: "left",
+              data: getName
+            },
+            series: [
+              {
+                data: resp.data
+              }
+            ]
+          });
         })
         .catch(error => {
           console.log(error);

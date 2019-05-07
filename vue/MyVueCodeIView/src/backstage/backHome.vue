@@ -49,7 +49,6 @@
             </MenuItem>
             <MenuItem name="2-2">
             <span @click="()=>{$router.push('/dish')}">修改用户</span>
-              <!-- <span @click="()=>{$router.push('/updateUser')}">修改用户</span> -->
             </MenuItem>
           </Submenu>
           <Submenu name="4">
@@ -65,6 +64,14 @@
               <MenuItem name="3-4">用户留存</MenuItem>
               <MenuItem name="3-5">流失用户</MenuItem>
             </MenuGroup>
+          </Submenu>
+          <Submenu name='5'>
+            <template slot="title">
+              <Icon type="ios-paper"/>文章管理
+            </template>
+            <MenuItem name="5-1">
+              <span @click="()=>{$router.push('uploadFile')}">新增文件</span>
+            </MenuItem>
           </Submenu>
         </Menu>
       </div>
