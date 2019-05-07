@@ -1,14 +1,14 @@
 """
-    后台首页 饼图
+    后台首页 折线图
 """
 import encoding
 import cgi
 import json
-from com.aowin.connect_table import doughnut_chart
+from com.aowin.connect_table import basicLine_chart
 
 f = cgi.FieldStorage()
 
-data = doughnut_chart.select_all()
+data = basicLine_chart.select_all()
 if data:
     print('Access-Control-Allow-Origin: *')
     print('')

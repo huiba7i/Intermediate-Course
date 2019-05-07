@@ -6,14 +6,41 @@ conn = DB_util.getConn()
 # 打开一个游标
 cursor = conn.cursor()
 
-# 新增 doughnutChart 数据表
+# 新增 files 数据表
 sql = """
-CREATE TABLE doughnutChart(
+CREATE TABLE uploadfiles(
     ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    VALUE INT(10) NOT NULL DEFAULT 0,
-    NAME VARCHAR(30) NOT NULL
+    FILEPATH VARCHAR(200),
+    UPDATETIME TIMESTAMP 
 )
 """
+
+# 新增 barSimble 数据表
+# sql = """
+# CREATE TABLE basicLineChart(
+#     ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+#     VALUE INT(10) NOT NULL DEFAULT 0,
+#     NAME VARCHAR(30) NOT NULL
+# )
+# """
+
+# 新增 barSimble 数据表
+# sql = """
+# CREATE TABLE barsimble(
+#     ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+#     VALUE INT(10) NOT NULL DEFAULT 0,
+#     NAME VARCHAR(30) NOT NULL
+# )
+# """
+
+# 新增 doughnutChart 数据表
+# sql = """
+# CREATE TABLE doughnutChart(
+#     ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+#     VALUE INT(10) NOT NULL DEFAULT 0,
+#     NAME VARCHAR(30) NOT NULL
+# )
+# """
 
 # 新增用户登录表
 # sql = """
