@@ -6,14 +6,24 @@ conn = DB_util.getConn()
 # 打开一个游标
 cursor = conn.cursor()
 
+# 新增 images 数据表
+# sql = """
+# CREATE TABLE uploadImages(
+#     ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+#     IMGCOUNT VARCHAR(1000),
+#     IMGPATH VARCHAR(200),
+#     UPDATETIME TIMESTAMP
+# )
+# """
+
 # 新增 files 数据表
-sql = """
-CREATE TABLE uploadfiles(
-    ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    FILEPATH VARCHAR(200),
-    UPDATETIME TIMESTAMP 
-)
-"""
+# sql = """
+# CREATE TABLE uploadfiles(
+#     ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+#     FILEPATH VARCHAR(200),
+#     UPDATETIME TIMESTAMP
+# )
+# """
 
 # 新增 barSimble 数据表
 # sql = """
