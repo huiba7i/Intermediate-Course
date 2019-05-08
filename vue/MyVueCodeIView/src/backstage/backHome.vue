@@ -24,7 +24,7 @@
     <!-- 侧边栏 -->
     <article class="sider">
       <div class="sider-box">
-        <Menu :theme="theme2" :open-names="['2', '5']" class="menu-background-color">
+        <Menu :theme="theme2" :open-names="['2']" class="menu-background-color" accordion>
           <MenuItem name="1">
             <Icon type="ios-home"/>
             <span class="home" @click="()=>{$router.push('/homeCharts')}">首页</span>

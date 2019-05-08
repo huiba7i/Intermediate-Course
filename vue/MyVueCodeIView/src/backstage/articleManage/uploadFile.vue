@@ -2,7 +2,15 @@
   <div class="file-box">
     <Form enctype="multipart/form-data">
       <FormItem :style="{'width': '70%', 'margin': 'auto'}">
-        <Upload multiple type="drag" :before-upload="beforeUploadFile" action>
+        <Upload
+          action
+          type="drag"
+          :max-size="100"
+          :format="['txt']"
+          :on-exceeded-size="exceededSize"
+          :before-upload="beforeUploadFile"
+          :on-format-error="handleFormatError"
+        >
           <div style="padding: 20px 0">
             <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
             <p>点击或将文件拖拽到这里上传</p>
@@ -17,76 +25,34 @@
 export default {
   data() {
     return {
-      imgs: [],
       files: [],
       isUploadFile: false,
-      isUploadImg: false,
-      uploadList: []
     };
   },
   watch: {
     isUploadFile: function(val) {
-      // if (val) {
-      //   let reader = new FileReader();
-      //   reader.readAsBinaryString(this.files[0], "utf-8");
-      //   reader.onerror = function(e) {
-      //     console.log("读取文件出错！");
-      //   };
-      //   reader.onload = function(e) {
-      //     console.log("读文件结束");
-      //   };
-      //   reader.onloadend = e => {
-      //     console.log("读文件成功");
-      //     // this.$http
-      //     //   .post(
-      //     //     "/cgi-bin/uploadFiles.py",
-      //     //     {
-      //     //       name: this.files[0].name,
-      //     //       file: reader.result,
-      //     //       time: this.dateFormat(new Date())
-      //     //     },
-      //     //     {
-      //     //       emulateJSON: true
-      //     //     }
-      //     //   )
-      //     //   .then(resp => {
-      //     //     console.log(resp);
-      //     //     if (resp.data === "success") {
-      //     //       this.$Message.success("上传成功");
-      //     //     } else {
-      //     //       this.$Message.error("上传失败");
-      //     //     }
-      //     //   })
-      //     //   .catch(error => {
-      //     //     console.log(error);
-      //     //   });
-      //   };
-      // }
-    },
-    isUploadImg: function(val) {
-      console.log(this.imgs);
       if (val) {
         let reader = new FileReader();
-        reader.readAsDataURL(this.imgs[0]);
+        reader.readAsText(this.files[0], "utf-8");
+        // reader.readAsBinaryString(this.files[0]);
         reader.onerror = function(e) {
-          // console.log("读取文件出错！");
+          console.log("读取文件出错！");
         };
         reader.onload = function(e) {
-          // console.log("读文件结束");
+          console.log("读文件结束");
         };
         reader.onloadend = e => {
-          // console.log("读文件成功");
-          // console.log(reader);
+          console.log("读文件成功");
 
-          this.uploadList.push(reader.result);
+          console.log("Files", this.files);
+          console.log("FileReader", reader);
 
-          console.log(this.uploadList);
           this.$http
             .post(
-              "/cgi-bin/uploadImg.py",
+              "/cgi-bin/uploadFiles.py",
               {
-                imgData: reader.result,
-                name: this.imgs[0].name,
+                file: reader.result,
+                name: this.files[0].name,
                 time: this.dateFormat(new Date())
               },
               {
@@ -95,7 +61,7 @@ export default {
             )
             .then(resp => {
               console.log(resp);
-              if (resp.data == "success") {
+              if (resp.data === "success") {
                 this.$Message.success("上传成功");
               } else {
                 this.$Message.error("上传失败");
@@ -104,29 +70,25 @@ export default {
             .catch(error => {
               console.log(error);
             });
-          this.isUploadImg = false;
         };
       }
     }
   },
   methods: {
-    BeforeUploadImg(file) {
-      this.imgs.push(file);
-      this.isUploadImg = true;
-      return false;
-    },
     handleFormatError(file) {
-      this.$Notice.warning({
-        title: "文件格式不正确",
-        desc:
-          "文件 " + file.name + " 格式不正确，请上传 jpg 或 png 格式的图片。"
-      });
+      this.$Message.error('error')
+      // this.$Notice.warning({
+      //   title: "文件格式不正确",
+      //   desc:
+      //     "文件 " + file.name + " 格式不正确，请上传 txt 格式的文件。"
+      // });
     },
-    handleMaxSize(file) {
-      this.$Notice.warning({
-        title: "超出文件大小限制",
-        desc: "文件 " + file.name + " 太大，不能超过 2M。"
-      });
+    exceededSize(file) {
+      this.$Message.error('error')
+      // this.$Notice.warning({
+      //   title: "超出文件大小限制",
+      //   desc: "文件 " + file.name + " 太大，不能超过 100kb。"
+      // });
     },
     beforeUploadFile(file) {
       this.files.push(file);

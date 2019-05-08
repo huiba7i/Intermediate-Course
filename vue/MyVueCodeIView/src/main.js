@@ -27,6 +27,8 @@ Vue.prototype.$ = $
 
 Vue.config.productionTip = false
 
+import './backstage/articleManage/wangEditor.min.js'
+
 new Vue({
   el: '#app',
   router,
