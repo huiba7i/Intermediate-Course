@@ -1,68 +1,38 @@
 <template>
-  <div class="file-box">
-    <Form enctype="multipart/form-data">
-      <FormItem :style="{'width': '70%', 'margin': 'auto'}">
-        <Upload multiple type="drag" :before-upload="beforeUploadFile" action>
-          <div style="padding: 20px 0">
-            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-            <p>点击或将文件拖拽到这里上传</p>
-          </div>
-        </Upload>
-      </FormItem>
-    </Form>
+  <div class="img-box">
+    <Upload
+      :on-format-error="handleFormatError"
+      :on-exceeded-size="handleMaxSize"
+      :show-upload-list="false"
+      :format="['jpg','jpeg','png']"
+      :max-size="2048"
+      :before-upload="BeforeUploadImg"
+      type="drag"
+      action
+      style="display: inline-block;width:100px;"
+    >
+      <div style="width: 100px;height:100px;line-height: 100px;">
+        <Icon type="plus-round"></Icon>
+      </div>
+    </Upload>
+
+    <div class="img-box" v-for="(s, index) in uploadList" :key="index" v-if="uploadList!=''">
+      <img :src="s">
+    </div>
   </div>
 </template>
+
 
 <script>
 export default {
   data() {
     return {
       imgs: [],
-      files: [],
-      isUploadFile: false,
       isUploadImg: false,
       uploadList: []
     };
   },
   watch: {
-    isUploadFile: function(val) {
-      // if (val) {
-      //   let reader = new FileReader();
-      //   reader.readAsBinaryString(this.files[0], "utf-8");
-      //   reader.onerror = function(e) {
-      //     console.log("读取文件出错！");
-      //   };
-      //   reader.onload = function(e) {
-      //     console.log("读文件结束");
-      //   };
-      //   reader.onloadend = e => {
-      //     console.log("读文件成功");
-      //     // this.$http
-      //     //   .post(
-      //     //     "/cgi-bin/uploadFiles.py",
-      //     //     {
-      //     //       name: this.files[0].name,
-      //     //       file: reader.result,
-      //     //       time: this.dateFormat(new Date())
-      //     //     },
-      //     //     {
-      //     //       emulateJSON: true
-      //     //     }
-      //     //   )
-      //     //   .then(resp => {
-      //     //     console.log(resp);
-      //     //     if (resp.data === "success") {
-      //     //       this.$Message.success("上传成功");
-      //     //     } else {
-      //     //       this.$Message.error("上传失败");
-      //     //     }
-      //     //   })
-      //     //   .catch(error => {
-      //     //     console.log(error);
-      //     //   });
-      //   };
-      // }
-    },
     isUploadImg: function(val) {
       console.log(this.imgs);
       if (val) {
@@ -128,11 +98,6 @@ export default {
         desc: "文件 " + file.name + " 太大，不能超过 2M。"
       });
     },
-    beforeUploadFile(file) {
-      this.files.push(file);
-      this.isUploadFile = true;
-      return false;
-    },
     dateFormat: function(time) {
       var date = new Date(time);
       var year = date.getFullYear();
@@ -170,7 +135,7 @@ export default {
 </script>
 
 <style scoped>
-.file-box {
+.img-box {
   padding: 40px 20px;
 }
 </style>

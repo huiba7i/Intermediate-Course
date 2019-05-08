@@ -24,7 +24,7 @@
     <!-- 侧边栏 -->
     <article class="sider">
       <div class="sider-box">
-        <Menu :theme="theme2" :open-names="['2']" class="menu-background-color">
+        <Menu :theme="theme2" :open-names="['2', '5']" class="menu-background-color">
           <MenuItem name="1">
             <Icon type="ios-home"/>
             <span class="home" @click="()=>{$router.push('/homeCharts')}">首页</span>
@@ -71,6 +71,12 @@
             </template>
             <MenuItem name="5-1">
               <span @click="()=>{$router.push('uploadFile')}">新增文件</span>
+            </MenuItem>
+            <MenuItem name="5-2">
+              <span @click="()=>{$router.push('uploadImg')}">新增图片</span>
+            </MenuItem>
+            <MenuItem name="5-3">
+              <span @click="()=>{$router.push('uploadCon')}">新增内容</span>
             </MenuItem>
           </Submenu>
         </Menu>

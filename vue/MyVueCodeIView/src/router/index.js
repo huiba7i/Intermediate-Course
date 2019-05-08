@@ -19,6 +19,8 @@ import Comment from '@/backstage/contentManage/comment'
 import UpdateUser from '@/backstage/userManage/updateUser'
 import AddUser from '@/backstage/userManage/addUser'
 import UploadFile from '@/backstage/articleManage/uploadFile'
+import UploadImg from '@/backstage/articleManage/uploadImg'
+import UploadCon from '@/backstage/articleManage/uploadCon'
 
 Vue.use(Router)
 
@@ -152,6 +154,16 @@ export default new Router({
         {
           path: '/uploadFile', components: {
             backContent: UploadFile
+          }
+        },
+        {
+          path: '/uploadImg', components: {
+            backContent: UploadImg
+          }
+        },
+        {
+          path: '/uploadCon', components:{
+            backContent: UploadCon
           }
         }
       ]
