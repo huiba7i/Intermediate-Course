@@ -6,6 +6,18 @@ conn = DB_util.getConn()
 # 打开一个游标
 cursor = conn.cursor()
 
+# 新增 ThematicDaily 数据表
+sql = """
+CREATE TABLE thematicdaily(
+    ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    MAINTITLE VARCHAR(100) NOT NULL,
+    SUBTITLE VARCHAR(50),
+    CONTENT TEXT,
+    RELEASETIME DATETIME,
+    MODIFICATIONTIME DATETIME
+)
+"""
+
 # 新增 images 数据表
 # sql = """
 # CREATE TABLE uploadImages(
