@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4870878d-46f6-423b-a60a-39986b52e478" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/08-python-mysql/Test/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/08-python-mysql/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vueblog/com/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vueblog/com/aowin/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vueblog/com/aowin/library/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vueblog/com/aowin/table/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_wrap/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/db_wrap/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_wrap/com/aowin/connect_table/back_login.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_wrap/com/aowin/connect_table/back_login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_wrap/com/aowin/connect_table/new_table.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_wrap/com/aowin/connect_table/new_table.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,15 +50,15 @@
     <session id="790215895">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
-          <entry key="project.open.time.0" value="1" />
+          <entry key="project.closed" value="9" />
+          <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.22" value="2" />
           <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="8" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -85,7 +89,7 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -381,7 +385,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49768874" visible="true" weight="0.11886994" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49768874" visible="true" weight="0.119936034" />
       <window_info id="Structure" order="1" sideWeight="0.5023112" side_tool="true" weight="0.18763326" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -704,9 +708,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
           <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <marker date="1556180110303" expanded="true" signature="91:96" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -721,9 +722,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="672">
           <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

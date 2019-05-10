@@ -6,17 +6,40 @@ conn = DB_util.getConn()
 # 打开一个游标
 cursor = conn.cursor()
 
-# 新增 ThematicDaily 数据表
+# 新增 article 数据表
 sql = """
-CREATE TABLE thematicdaily(
+CREATE TABLE article(
     ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    MAINTITLE VARCHAR(100) NOT NULL,
-    SUBTITLE VARCHAR(50),
+    TITLE VARCHAR(100) NOT NULL,
     CONTENT TEXT,
-    RELEASETIME DATETIME,
+    READINGVOLUME VARCHAR(10),
+    RELEASETIME DATETIME,       
     MODIFICATIONTIME DATETIME
 )
 """
+
+# 新增 userInfo 数据表
+# sql = """
+# CREATE TABLE userinfo(
+#     ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+#     NAME VARCHAR(30) NOT NULL,
+#     SUBTITLE VARCHAR(50),
+#     CREATIONTIME DATETIME,
+#     LASTMODIFICATIONTIME DATETIME
+# )
+# """
+
+# 新增 ThematicDaily 数据表
+# sql = """
+# CREATE TABLE thematicdaily(
+#     ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+#     MAINTITLE VARCHAR(100) NOT NULL,
+#     SUBTITLE VARCHAR(50),
+#     CONTENT TEXT,
+#     RELEASETIME DATETIME,
+#     MODIFICATIONTIME DATETIME
+# )
+# """
 
 # 新增 images 数据表
 # sql = """
