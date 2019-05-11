@@ -3,6 +3,9 @@
 """
 from com.aowin.connect_library import DB_util
 from com.aowin.modal import Page
+import json
+import re
+
 
 def inster(stu):
     """
@@ -22,6 +25,7 @@ def inster(stu):
         if conn:
             conn.close()
 
+
 def delete(id):
     """
         删除一条文章信息
@@ -39,6 +43,7 @@ def delete(id):
         if conn:
             conn.close()
 
+
 def update(user):
     """
        修改文章信息
@@ -48,13 +53,14 @@ def update(user):
     conn = DB_util.getConn()
     try:
         cur = conn.cursor()
-        sql = 'UPDATE article SET TITLE=%s, CONTENT=%s, MODIFICATIONTIME=%s '
+        sql = 'UPDATE article SET TITLE=%s, CONTENT=%s, MODIFICATIONTIME=%s WHERE ID=%s'
         cur.execute(sql, user)
         conn.commit()
         return cur.rowcount
     finally:
         if conn:
             conn.close()
+
 
 def select_all():
     """
@@ -70,10 +76,13 @@ def select_all():
         # 将Tuple的list，转换成User对象的list
         users = []
         for u in cur.fetchall():
+            s2 = re.sub(r'<.*?>', '', u[2])
+            # 再用str.replace()函数去掉'\n'
+            s2 = s2.replace('\n', '')
             user = {
                 'id': u[0],
                 'title': u[1],
-                'content': u[2],
+                'content': s2,
                 'readingVolume': u[3],
                 'releaseTime': str(u[4]),
                 'modificationTime': str(u[5]),
@@ -83,6 +92,7 @@ def select_all():
     finally:
         if conn:
             conn.close()
+
 
 def select_all_page(list, pageNum):
     """
@@ -94,6 +104,7 @@ def select_all_page(list, pageNum):
         readingVolume    # 阅读数量
         startDete,
         endDate,
+        isConvertFormat     # 是否转换成字符串(默认内容带有标签) true/false
     :param pageNum: 页数
     :return: 查询到的数据对象
     """
@@ -105,7 +116,7 @@ def select_all_page(list, pageNum):
 
         sql = ' WHERE 1 = 1'
 
-        params = []     # 用来存放具体的条件参数
+        params = []  # 用来存放具体的条件参数
         if 'id' in list:
             if list['id']:
                 sql += ' AND ID = %s'
@@ -152,12 +163,27 @@ def select_all_page(list, pageNum):
 
         cur.execute(sqlData, tuple(params))
 
+        # 判断是否转换为字符串
+        if 'isConvertFormat' in list:
+            if list['isConvertFormat']:
+                isTrue = True
+            else:
+                isTrue = False
+        else:
+            return 'isConvertFormat'
+
         lists = []
         for u in cur.fetchall():
+            if isTrue == True:
+                s2 = re.sub(r'<.*?>', '', u[2])
+                s2 = s2.replace('\n', '')
+            else:
+                s2 = u[2]
+
             list = {
                 'id': u[0],
                 'title': u[1],
-                'content': u[2],
+                'content': s2,
                 'readingVolume': u[3],
                 'releaseTime': str(u[4]),
                 'modificationTime': str(u[5]),
@@ -170,12 +196,7 @@ def select_all_page(list, pageNum):
         if (conn):
             conn.close()
 
-
-
 # if __name__ == '__main__':
-    # info = ('CSS文本超出2行就隐藏并且显示省略号', '内容内容内容内容内容内容内容内容内容内容', '0', '2019-05-10 15:05:08', '2019-05-10 15:05:08')
-    # s = inster(info)
-    # print(s)
-
-    # n = select_all()
-    # print(n)
+#     n = select_all_page({}, 1)
+#     page = json.dumps(n.__dict__, ensure_ascii=False)
+#     # print(page)

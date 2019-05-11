@@ -1,5 +1,5 @@
 """
-    后台新增用户信息
+    前台新增用户信息
 """
 import encoding
 import cgi
