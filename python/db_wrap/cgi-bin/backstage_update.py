@@ -17,7 +17,7 @@ if not id:
     print('access-control-allow-origin: *')
     print('')
     print('必须传入ID', end='')
-elif not re.search('[\u4E00-\u9FA50-9a-zA-Z_]{3,6}', name):
+elif not re.search('^[\u4E00-\u9FA50-9a-zA-Z_]{3,6}$', name):
     print('access-control-allow-origin: *')
     print('')
     print('用户名错误', end='')
@@ -26,7 +26,7 @@ elif not re.search('^[0-9a-zA-Z]{3,6}$', pwd):
     print('')
     print('用户密码错误', end='')
 else:
-    up = (name,pwd, id)
+    up = (name, pwd, id)
     update = back_login.update(up)
     if up:
         print('access-control-allow-origin: *')

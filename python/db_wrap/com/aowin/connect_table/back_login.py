@@ -66,7 +66,7 @@ def update(user):
     conn = DB_util.getConn()
     try:
         cur = conn.cursor()
-        sql = 'UPDATE backstage_login SET NAME=%s, USERPWD=%s WHERE ID=%s'
+        sql = 'UPDATE backstage_login SET USERNAME=%s, USERPWD=%s WHERE ID=%s'
         cur.execute(sql, user)
         conn.commit()
         return cur.rowcount

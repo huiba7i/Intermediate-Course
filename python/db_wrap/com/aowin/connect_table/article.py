@@ -3,7 +3,6 @@
 """
 from com.aowin.connect_library import DB_util
 from com.aowin.modal import Page
-import json
 import re
 
 

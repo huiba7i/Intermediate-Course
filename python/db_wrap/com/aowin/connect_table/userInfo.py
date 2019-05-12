@@ -2,7 +2,7 @@
     vue-blog 前台用户信息
 """
 from com.aowin.connect_library import DB_util
-
+import re
 
 def insert(user):
     """
@@ -13,14 +13,15 @@ def insert(user):
     conn = DB_util.getConn()
     try:
         cur = conn.cursor()
-        sql = 'INSERT INTO userinfo (NAME, SUBTITLE, CREATIONTIME) VALUES' \
-              '(%s, %s, %s)'
+        sql = 'INSERT INTO userinfo (NAME, SUBTITLE, CREATIONTIME, LOGINNAME, LOGINPASSWORD) VALUES' \
+              '(%s, %s, %s, %s, %s)'
         cur.execute(sql, user)
         conn.commit()
         return cur.rowcount
     finally:
         if conn:
             conn.close()
+
 
 def delete(id):
     """
@@ -39,6 +40,7 @@ def delete(id):
         if conn:
             conn.close()
 
+
 def update(list):
     """
        修改用户信息
@@ -48,13 +50,14 @@ def update(list):
     conn = DB_util.getConn()
     try:
         cur = conn.cursor()
-        sql = 'UPDATE userinfo SET NAME=%s, SUBTITLE=%s, LASTMODIFICATIONTIME=%s WHERE ID=%s'
+        sql = 'UPDATE userinfo SET NAME=%s, SUBTITLE=%s, LASTMODIFICATIONTIME=%s, LOGINNAME=%s, LOGINPASSWORD=%s WHERE ID=%s'
         cur.execute(sql, list)
         conn.commit()
         return cur.rowcount
     finally:
         if conn:
             conn.close()
+
 
 def select_all():
     """
@@ -76,6 +79,8 @@ def select_all():
                 'subTitle': u[2],
                 'creationTime': str(u[3]),
                 'lastModificationTime': str(u[4]),
+                'loginName': u[5],
+                'loginPassword': u[6]
             }
             users.append(user)
         return users
@@ -84,13 +89,48 @@ def select_all():
         if conn:
             conn.close()
 
+
+def userInfo_login(name, pwd):
+    """
+        前台用户登录功能
+    :param name: 用户姓名
+    :param pwd: 用户登录密码
+    :return: 查询到的用户信息
+    """
+    conn = DB_util.getConn()
+    try:
+        cur = conn.cursor()
+        sql = 'SELECT * FROM userInfo WHERE LOGINNAME = %s AND LOGINPASSWORD = %s'
+        cur.execute(sql, (name, pwd))
+
+        # user = cur.fetchone()
+
+        users = []
+        for u in cur.fetchall():
+            s2 = re.sub(r'<.*?>', '', u[2])
+            # 再用str.replace()函数去掉'\n'
+            s2 = s2.replace('\n', '')
+            user = {
+                'id': u[0],
+                'name': u[1],
+                'subTitle': s2,
+                'creationTime': str(u[3]),
+                'lastModificationTime': str(u[4]),
+                'loginName': u[5],
+                'loginPassword': u[6]
+            }
+            users.append(user)
+
+        return users
+    finally:
+        if conn:
+            conn.close()
+
+
 # if __name__ == '__main__':
-    # u = ('~~企鹅跑的慢~~', '常在河海走，哪有不湿脚', '2019-05-10 10:21:00', '2019-05-10 10:21:00')
-    # c = insert(u)
-    # print(c)
-
-    # c = select_all()
-    # print(c)
-
-
-
+#     # a = ('aa', 'aa', '2019-05-12 20:28:29', 'hahah', '1111')
+#     # aa = insert(a)
+#     # print(aa)
+#
+#     c = select_all()
+#     print(c)

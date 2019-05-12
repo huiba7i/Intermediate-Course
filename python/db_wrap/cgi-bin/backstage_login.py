@@ -9,7 +9,7 @@ import json
 
 # 1、获取客户端数据
 f = cgi.FieldStorage()  # 获得所有客户端发送过来的数据
-print(f)
+
 # 获取具体参数
 name = f.getvalue('name')
 password = f.getvalue('pwd')
