@@ -12,7 +12,7 @@ title = f.getvalue('title')
 content = f.getvalue('content')
 releaseTime = f.getvalue('releaseTime')
 
-if not re.search('^[\u4e00-\u9fa50-9a-zA-Z]{0,30}$', title):
+if not re.search('^[\u4e00-\u9fa50-9a-zA-Z\s]{0,30}$', title):
     print('access-control-allow-origin: *')
     print('')
     print('文章标题错误', end='')

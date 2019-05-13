@@ -19,33 +19,27 @@ createionTime = f.getvalue('createionTime')
 print("Content-type:text/plain;charset=utf-8")
 print('access-control-allow-origin: *')
 
-if not re.search('[\u4E00-\u9FA50-9a-zA-Z_]{3,10}', loginName):
+if not re.search('^[\u4E00-\u9FA50-9a-zA-Z\s_]{3,10}$', loginName):
     print('')
     print('用户名错误', end='')
 elif not re.search('^[0-9a-zA-Z]{3,6}$', loginPwd):
-    print('access-control-allow-origin: *')
     print('')
     print('用户密码错误', end='')
-elif not re.search('^[\u4E00-\u9FA50-9a-zA-Z_]{3,10}$', name):
-    print('access-control-allow-origin: *')
+elif not re.search('^[\u4E00-\u9FA50-9a-zA-Z\s_]{3,10}$', name):
     print('')
     print('用户名(主标题)错误', end='')
-elif not re.search('^[\u4E00-\u9FA50-9a-zA-Z，。；！？’‘“”_!"#$%&\'()*+,-./:;<=>?@[\\]^`{|}~]{0,20}$', subTitle):
-    print('access-control-allow-origin: *')
+elif not re.search('^[\u4E00-\u9FA50-9a-zA-Z\s，。；！？’‘“”_!"#$%&\'()*+,-./:;<=>?@[\\]^`{|}~]{0,20}$', subTitle):
     print('')
     print('副标题错误', end='')
 elif not re.search('^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$', createionTime):
-    print('access-control-allow-origin: *')
     print('')
     print('创建时间错误', end='')
 else:
     list = (name, subTitle, createionTime, loginName, loginPwd)
     info = userInfo.insert(list)
     if info:
-        print('access-control-allow-origin: *')
         print('')
         print('success', end='')
     else:
-        print('access-control-allow-origin: *')
         print('')
         print('error', end='')

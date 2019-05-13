@@ -61,6 +61,24 @@ def update(user):
             conn.close()
 
 
+def update_readingVolume(user):
+    """
+       修改文章信息
+    :param user: 阅读量和id
+    :return: 返回已修改条数
+    """
+    conn = DB_util.getConn()
+    try:
+        cur = conn.cursor()
+        sql = 'UPDATE article SET READINGVOLUME=%s WHERE ID=%s'
+        cur.execute(sql, user)
+        conn.commit()
+        return cur.rowcount
+    finally:
+        if conn:
+            conn.close()
+
+
 def select_all():
     """
         查询全部文章信息
@@ -82,7 +100,7 @@ def select_all():
                 'id': u[0],
                 'title': u[1],
                 'content': s2,
-                'readingVolume': u[3],
+                'readingVolume': int(u[3]),
                 'releaseTime': str(u[4]),
                 'modificationTime': str(u[5]),
             }
@@ -183,7 +201,7 @@ def select_all_page(list, pageNum):
                 'id': u[0],
                 'title': u[1],
                 'content': s2,
-                'readingVolume': u[3],
+                'readingVolume': int(u[3]),
                 'releaseTime': str(u[4]),
                 'modificationTime': str(u[5]),
             }
